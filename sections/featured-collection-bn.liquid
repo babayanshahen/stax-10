@@ -1,0 +1,115 @@
+<div class="bn-section-2020 featured-collection" data-section-id="{{ section.id }}" data-section-type="featured-collection-section-bn">
+  {% comment %}
+    By default, featured products come from your Frontpage collection.
+    This collection is empty by default and must have products added to it
+  {% endcomment %}
+  {% if section.settings.home_featured_products_bn == blank %}
+    {% assign featured_collection = "frontpage" %}
+  {% else %}
+    {% assign featured_collection = section.settings.home_featured_products_bn %}
+    {% assign featured_collection_title = section.settings.featured_collection_title %}
+  {% endif %}
+
+  {% comment %}Heading for screen readers{% endcomment %}
+  <h2 class="bn-collection-header">{{ featured_collection_title }}</h2>
+<!-- banner_bottom_slick -->
+  <div class="grid grid--no-gutters grid--uniform collection-grid" id="featured-collection-bn" >
+    {% comment %}
+      Set grid item widths based on settings
+    {% endcomment %}
+    {% include 'product-grid-width' with product_image_type: section.settings.product_image_type_bn, product_image_size: section.settings.product_image_size_bn %}
+
+    {% unless section.settings.home_featured_products_bn == blank %}
+      {% for product in collections[featured_collection].products %}
+        {% assign price = product.price | money_without_trailing_zeros %}
+        {% include 'product-grid-item-bn' with product_image_spacing: section.settings.product_image_spacing_bn, vendor_enable_bn: section.settings.vendor_enable_bn %}
+      {% else %}
+        {% comment %}
+          If collection is empty, show onboarding state
+          For onboarding new users to your theme, we add some default products and onboarding tutorials to help populate their store
+        {% endcomment %}
+        {% include 'onboarding-featured-collection' with product_image_spacing: section.settings.product_image_spacing_bn %}
+
+      {% endfor %}
+    {% else %}
+      {% include 'onboarding-featured-collection' with product_image_spacing: section.settings.product_image_spacing_bn %}
+    {% endunless %}
+  </div>
+</div>  
+
+{% schema %}
+  {
+    "name": "Featured-BN-SYSTEMS",
+    "class": "index-section featured-collection-section-bn",
+    "settings": [{
+        "type": "header",
+        "content": "Collection"
+      },{
+        "type": "collection",
+        "id": "home_featured_products_bn",
+        "label": "Collection"
+      }, {
+        "type": "header",
+        "content": "Image"
+      },
+       {
+      "type" : "text",
+      "id": "featured_collection_title",
+      "label": "Collection Title",
+      "default": "Collection Name"
+    },
+      {
+        "type": "select",
+        "id": "product_image_type_bn",
+        "label": "Image style",
+        "options": [
+          {
+            "value": "portrait",
+            "label": "Tall/square"
+          },
+          {
+            "value": "landscape",
+            "label": "Wide"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "product_image_size_bn",
+        "label": "Image size",
+        "default": "small",
+        "options": [
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          },
+          {
+            "value": "xlarge",
+            "label": "Extra large"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "product_image_spacing_bn",
+        "label": "Enable image spacing"
+      },
+      {
+        "type": "checkbox",
+        "id": "vendor_enable_bn",
+        "label": "Show product vendor"
+      }],
+    "presets": [{
+      "name": "Featured Created by BN",
+      "category": "Collection"
+    }]
+  }
+{% endschema %}

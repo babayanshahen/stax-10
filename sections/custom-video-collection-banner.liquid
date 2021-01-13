@@ -1,0 +1,142 @@
+<div id="shopify-section-{{ section.id }}" class="bn-section-2020 shopify-section index-section custom-html-section" >
+  <div class="grid grid--uniform" data-section-id="{{ section.id }}" data-section-type="custom-html-section">
+    <div class=" ">
+      <!--     <div class="page-width"> -->
+      <div id="banner_custom_1">
+        
+        
+           
+          
+        <div class="banner_section_bg " style="background-color: {{section.settings.banner_bg_color}}!important">
+          {% if section.settings.title != blank %}
+          <h2>{{ section.settings.title | escape }}</h2>
+        {% endif %}
+          <div class="banner_section_content">
+            
+            {% if section.settings.title-second != blank %}
+            <h3>{{ section.settings.title-second | escape }}</h3>
+            {% endif %}
+          </div>
+        </div>
+        <div id="banner-image-bn">
+          </div>
+          <div class="banner_section3 video_outher" style="position: relative;">
+            <div class="banner_section_content3_2 absolute_background">
+              <div>
+                <video muted="true" playsinline="" webkit-playsinline="" autoplay="true" loop="" preload="auto" style="width:100%" src="{{section.settings.video_url}}">
+                  <source src="{{section.settings.video_url}}" type="video/mp4">
+                </video>
+              </div>
+              <div class="view_collection_btn" style="z-index: 99">
+        <button type="button">
+          <a href="/collections/{{featured_collection}}">SHOP NOW</a>
+        </button>
+      </div>
+            </div>
+            <div class="all_video_collection" style="width: 100%">
+              <div class="featured-collection slick_banner" data-section-id="{{ section.id }}" data-section-type="featured-collection-section" style="display: grid;grid-template-columns: 1fr 1fr 1fr; grid-row-gap: 40px;">
+              {% if section.settings.collection_video == blank %}
+    {% assign featured_collection = "frontpage" %}
+  {% else %}
+    {% assign featured_collection = section.settings.collection_video %}
+
+  {% endif %}
+              {% unless section.settings.collection_video == blank %}
+              {% paginate collections[featured_collection].products by 9 %}
+  
+              {% for product in collections[featured_collection].products %}
+        {% assign price = product.price | money_without_trailing_zeros %}
+        {% include 'product-grid-item' with product_image_spacing: section.settings.product_image_spacing, vendor_enable: section.settings.vendor_enable %}
+      {% else %}
+        {% comment %}
+          If collection is empty, show onboarding state
+          For onboarding new users to your theme, we add some default products and onboarding tutorials to help populate their store
+        {% endcomment %}
+        {% include 'onboarding-featured-collection' with product_image_spacing: section.settings.product_image_spacing %}
+
+      {% endfor %}
+      
+      {% endpaginate %}
+    {% else %}
+      {% include 'onboarding-featured-collection' with product_image_spacing: section.settings.product_image_spacing %}
+    {% endunless %}
+  </div>
+  
+            </div>
+           
+          </div>
+        </a>
+      </div>
+      <!--     </div> -->
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Video Collection Banner",
+    "class": "index-section video-collection-banner",
+    "settings": [
+    {
+        "type": "collection",
+        "id": "collection_video",
+        "label": "Collection"
+        
+      },
+      {
+        "type": "text",
+        "id": "video_url",
+        "label": "Video Url",
+        "default": "Video Link"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Video alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "banner_bg_color",
+        "label": "Banner Color",
+        "default": "Hexadecimal Code"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Custom Banner"
+      },
+      {
+        "type": "text",
+        "id": "title-second",
+        "label": "Heading 2",
+        "default": "Custom Banner"
+      }
+      
+      
+    ],
+    "presets": [
+      {
+        "name": "Video Collection Banner",
+        "category": "Video"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

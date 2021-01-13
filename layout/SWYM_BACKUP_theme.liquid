@@ -1,0 +1,487 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+{% include 'kiwiSizing' %}
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="max-age=200" />
+  {%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{% comment %} Use string splitting to pull the value from content_for_header and apply some string clean up {% endcomment %}
+{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
+   replace:'\/','/' |
+   replace:'%20',' ' |
+   replace:'\u0026','&'
+-%}
+  {% if pageUrl == 'stax.com.au/collections/all/pre-order' %}
+  <meta name="robots" content="noindex" />
+    {% endif %}
+ <script type="text/javascript" src="{{ 'jquery_3.14.min.js' | asset_url }}"></script>
+<link rel="stylesheet" href="{{ 'coockie.min.css' | asset_url   }}" media="coockie">
+  <link rel="stylesheet" href="{{ 'slick-theme.css' | asset_url   }}" media="theme">
+  <link rel="stylesheet" href="{{ 'slick.css' | asset_url   }}" media="slick">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <script src="{{ 'slick.min.js' | asset_url }}"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134997919-1"></script>
+  <script defer>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-134997919-1');
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-957675220"></script>
+<script defer>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-957675220');
+</script>
+<script defer >
+    window.theme = window.theme || {};
+    theme.strings = {
+      cartEmpty: {{ 'cart.general.empty' | t | json }},
+      savingHtml: {{ 'cart.general.savings_html' | t: price: '[savings]' | json }},
+      addToCart: {{ 'products.product.add_to_cart' | t | json }},
+      soldOut: {{ 'products.product.sold_out' | t | json }},
+      unavailable: {{ 'products.product.unavailable' | t | json }},
+      addressError: {{ 'map.address_error' | t | json }},
+      addressNoResults: {{ 'map.address_no_results' | t | json }},
+      addressQueryLimit: {{ 'map.address_query_limit_html' | t | json }},
+      authError: {{ 'map.auth_error_html' | t | json }}
+    };
+    theme.settings = {
+      cartType: {{ settings.cart_type | json }},
+      moneyFormat: {{ shop.money_format | json }}
+    };
+  </script>
+  <script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1714298,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'lazysizes.min.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'lazysizes.min.js' | asset_url }}"></script><![endif]-->
+
+  {% if template.directory == 'customers' %}
+    <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
+    <!--[if lte IE 9]><script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script><![endif]-->
+  {% endif %}
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'vendor.js' | asset_url }}"></script><![endif]-->
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'option_selection.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'option_selection.js' | shopify_asset_url }}"></script><![endif]-->
+  <script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'application.js' | asset_url }}" defer></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'application.js' | asset_url }} defer"></script><![endif]-->
+   <script async src="//staticxx.s3.amazonaws.com/aio_stats_lib_v1.min.js?v=1.0"></script>
+  {% comment %}
+   <script data-cfasync="false" type="text/javascript" async src="https://cdn.judge.me/shopify_v2.js"></script>
+  {% endcomment %}
+   <script defer type="text/javascript">
+(
+  function(i,s,o,g,r,a,m){
+    i['GoogleAnalyticsObject']=r;
+    i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments);
+    },i[r].l=1*new Date();
+    a=s.createElement(o),m=s.getElementsByTagName(o)[0];
+    a.async=1;
+    a.src=g;
+    m.parentNode.insertBefore(a,m);
+  }
+)(window,document,'script','https://www.google-analytics.com/analytics.js','laybuy_ga');
+laybuy_ga('create', 'UA-98288670-1', {'sampleRate': 1});
+laybuy_ga('send', 'event', 'Liquid Snippet', 'Report Version', '1.04');
+laybuy_ga('send', 'event', 'Theme', 'Report Name', {{ theme.name | json }});
+laybuy_ga('send', 'event', 'Shop', 'Report Currency', {{ shop.currency | json }});
+</script>
+
+   <script defer type="text/javascript">
+
+window.shopyappsProductLabels = {}
+window.shopyappsProductLabels.productBadgeMap = {};
+
+{% assign badges = badgeToApply | strip_newlines | downcase %}
+{% if badges != '' %}
+window.shopyappsProductLabels.productBadgeMap = { "{{ product.handle }}" : {{ badges }} }
+{% endif %}
+
+window.shopyappsProductLabels.type = "{{ type | strip_newlines }}"
+
+// if(typeof jQuery=='undefined') {
+//   var headTag = document.getElementsByTagName("head")[0];
+//   var jqTag = document.createElement('script');
+//   jqTag.type = 'text/javascript';
+//   jqTag.src = 'https://code.jquery.com/jquery-3.2.1.min.js ';
+//   jqTag.onload = function(){
+//     jQuery.noConflict();
+//     if (window.setupShopyAppsProductLabels){
+//       window.setupShopyAppsProductLabels();
+//     }
+//   };
+//   headTag.appendChild(jqTag);
+// }
+
+</script>
+   {% if product.metafields.keywords.keywords  != blank and template.name == 'product'%}
+    <meta name="keywords" content="{{ product.metafields.keywords.keywords }}">
+    {% elsif collection.metafields.col_keywords.keywords != blank and template.name == 'collection'%}
+    <meta name="keywords" content="{{ collection.metafields.col_keywords.keywords }}">
+    {% else %}
+     <meta name="keywords" content="Stax,staxlivin,online shop of sportswear,sportswear near australia,Staxlivin,gymshark leggings,lululemon,lorna jane australia,gym shark, active wear">
+  {%endif%}
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="google-site-verification" content="2heIj0bzW_w-BOp2HxXIZkJkdGKOijDlqsQ33FE0tjk" />
+
+  <meta name="theme-color" content="{{ settings.color_nav_bg }}">
+  {% if settings.favicon %}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
+  {% endif %}
+  {% if template.name == "product"%}
+  <link rel="canonical" href="{{shop.url}}{{ product.url | within: collection }}">
+  {% else %}
+  <link rel="canonical" href="{{ canonical_url }}">
+  {%endif %}
+
+  <title>
+  {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  
+
+
+<!-- Global site tag (gtag.js) - Google Ads: 957675220 -->
+
+
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  	
+  
+  {% endif %}
+ 
+  {{ content_for_header }}
+
+  {% include 'social-meta-tags' %}
+  <link rel="stylesheet" href="{{ 'theme.scss.css' | asset_url }}">
+
+
+  <!-- Google Fonts | from theme settings ================================================== -->
+  {% if settings.type_base_family contains 'Google' %}
+    {% assign type_base_parts = settings.type_base_family | split: '_' %}
+    {% capture base_google_url %}{{ type_base_parts[1] }}:{{ type_base_parts[2] }}{% endcapture %}
+    {{ '//fonts.googleapis.com/css?family=Roboto:400,700&display=swap' | append: base_google_url | stylesheet_tag }}
+  {% endif %}
+  {% if settings.type_header_family contains 'Google' %}
+    {% unless settings.type_header_family contains type_base_parts[1] %}
+      {% assign type_header_parts = settings.type_header_family | split: '_' %}
+      {% capture header_google_url %}{{ type_header_parts[1] }}:{{ type_header_parts[2] }}{% endcapture %}
+      {{ '//fonts.googleapis.com/css?family=Roboto:400,700&display=swap' | append: header_google_url | stylesheet_tag }}
+    {% endunless %}
+  {% endif %}
+  
+
+  
+
+
+  
+ 
+
+  {% include 'judgeme_core' %}
+     
+        {% comment %} start shopyapps-product-labels section {% endcomment %}
+<link rel="stylesheet" href="{{ 'shopyapps-product-labels.css' | asset_url }}" disabled media="all">
+{% include 'shopyapps-product-labels' %}
+{% comment %} end shopyapps-product-labels section {% endcomment %}
+<!-- Hotjar Tracking Code for https://stax.com.au/ -->
+
+</head>
+
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+
+    <div class="custom-loader">
+      <div class="loader-content"></div>
+    </div>    
+
+
+  <!-- <div class="stax_start_banner">
+    <img src="https://cdn.shopify.com/s/files/1/0854/5504/files/unnamed_1.png?v=1583524950" alt="loader" title="loader">
+  </div> -->
+  <div class="all-content">
+  <div id="SearchDrawer" class="search-bar drawer drawer--top">
+    <div class="search-bar__table">
+      <form action="/search" method="get" class="search-bar__table-cell search-bar__form" role="search">
+        <div class="search-bar__table">
+          <div class="search-bar__table-cell search-bar__icon-cell">
+            <button type="submit" class="search-bar__icon-button search-bar__submit">
+              <span class="icon icon-search" aria-hidden="true"></span>
+              <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>
+            </button>
+          </div>
+          <div class="search-bar__table-cell">
+            <input type="search" id="SearchInput" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" class="search-bar__input">
+          </div>
+        </div>
+      </form>
+      <div class="search-bar__table-cell text-right">
+        <button type="button" class="search-bar__icon-button search-bar__close js-drawer-close">
+          <span class="icon icon-x" aria-hidden="true"></span>
+          <span class="icon__fallback-text">{{ 'general.search.close_search' | t }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="NavDrawer" class="drawer drawer--left">
+  {% section 'sidebar-menu' %}
+  </div>
+  <div id="CartDrawer" class="drawer drawer--right drawer--has-fixed-footer">
+    
+    <div class="drawer__inner">
+      <button type="button" class="drawer__close-button js-drawer-close">
+          <span class="icon icon-x" aria-hidden="true"></span>
+          <span class="icon__fallback-text">{{ 'cart.general.close_cart' | t }}</span>
+        </button>
+      <div id="CartContainer">
+      </div>
+    </div>
+  </div>
+
+  <div id="PageContainer">
+    
+   
+    {% unless template.name == "index" %}
+     {% section 'announcement-bar' %}
+     {% section 'header' %}
+      
+    {% endunless %}
+
+    <main class="main-content" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+  </div>
+
+  {% comment %}
+    Enable ajax cart drawer
+  {% endcomment %}
+  {% if settings.cart_type == 'drawer' %}
+    <script defer id="CartTemplate" type="text/template">
+      {% raw %}
+        <form action="/cart" method="post" novalidate class="cart ajaxcart">
+          <div class="ajaxcart__inner ajaxcart__inner--has-fixed-footer">
+            {{#items}}
+            <div class="ajaxcart__row">
+              <div class="ajaxcart__product" data-line="{{line}}">
+                <div class="grid grid--half-gutters">
+                  <div class="grid__item one-quarter">
+                    <a href="{{url}}" class="ajaxcart__product-image"><img src="{{img}}" alt="{{name}}"></a>
+                  </div>
+                  <div class="grid__item three-quarters">
+                    <div class="ajaxcart__product-name-wrapper">
+                      <a href="{{url}}" class="ajaxcart__product-name h4">{{name}}</a>
+                      {{#if variation}}
+                        <span class="ajaxcart__product-meta">{{variation}}</span>
+                      {{/if}}
+                      {{#properties}}
+                        {{#each this}}
+                          {{#if this}}
+                            <span class="ajaxcart__product-meta">{{@key}}: {{this}}</span>
+                          {{/if}}
+                        {{/each}}
+                      {{/properties}}
+                    </div>
+
+                    <div class="grid grid--table">
+                      <div class="grid__item one-half">
+                        <div class="ajaxcart__qty">
+                          <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}" aria-label="{% endraw %}{{ 'cart.label.reduce_quantity' | t }}{% raw %}">
+                            <span class="icon icon-minus" aria-hidden="true"></span>
+                            <span class="icon__fallback-text" aria-hidden="true">&minus;</span>
+                          </button>
+                          <input type="text" name="updates[]" class="ajaxcart__qty-num" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+                          <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus" data-id="{{key}}" data-line="{{line}}" data-qty="{{itemAdd}}" aria-label="{% endraw %}{{ 'cart.label.increase_quantity' | t }}{% raw %}">
+                            <span class="icon icon-plus" aria-hidden="true"></span>
+                            <span class="icon__fallback-text" aria-hidden="true">+</span>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="grid__item one-half text-right">
+                      {{#if discountsApplied}}
+                        <small class="ajaxcart-item__price-strikethrough"><s>{{{originalLinePrice}}}</s></small>
+                        <br><span>{{{linePrice}}}</span>
+                      {{else}}
+                         <span>{{{linePrice}}}</span>
+                      {{/if}}
+                      </div>
+                    </div>
+                    {{#if discountsApplied}}
+                      <div class="grid grid--table">
+                        <div class="grid__item text-right">
+                          {{#each discounts}}
+                            <small class="ajaxcart-item__discount">{{ this.title }}</small><br>
+                          {{/each}}
+                        </div>
+                      </div>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{/items}}
+
+            {% endraw %}{% if settings.cart_notes_enable %}{% raw %}
+              <div class="ajaxcart__row">
+                <label for="CartSpecialInstructions" class="ajaxcart__note txt--minor">{% endraw %}{{ 'cart.general.note' | t }}{% raw %}</label>
+                <textarea name="note" class="input-full" id="CartSpecialInstructions">{{note}}</textarea>
+              </div>
+            {% endraw %}{% endif %}{% raw %}
+          </div>
+          
+          <div class="ajaxcart__footer ajaxcart__footer--fixed">
+            <div class="popup-dialog dialog-in-sidebar bn-popup-dialog-container">
+                    <div class="bn-popup-dialog-text-container">
+                      <h2 class="text-center">W A I T !</h2>
+                      <p>HAVE YOU TRIED OUR FAMOUS BEST BLACK TIGHTS</p>
+                    </div>
+                    <div class="bn-popup-dialog-button-container">
+                      <button class="shop-now-popup shop-now-in-sidebar" type="button"><a href="/collections/best-black-series"><span>SHOP</span> NOW</a></button>
+                    </div>
+                     </div>
+            <div class="ajaxcart__subtotal">
+              <div class="grid grid--table">
+                <div class="grid__item two-thirds">
+                  <span class="ajaxcart__subtotal-title h3">{% endraw %}{{ 'cart.general.subtotal' | t }}{% raw %}</span>
+                </div>
+                <div class="grid__item one-third text-right">
+                  <span>{{{totalPrice}}}</span>
+                </div>
+              </div>
+              {{#if totalCartDiscountApplied}}
+                <p class="ajaxcart__savings text-center"><em>{{{totalCartDiscount}}}</em></p>
+              {{/if}}
+            </div>
+            <p class="text-center ajaxcart__note txt--minor">{% endraw %}{{ 'cart.general.shipping_at_checkout' | t }}{% raw %}</p>
+            <button type="submit" class="btn btn--full cart__checkout" name="checkout">
+              {% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}
+            </button>
+          </div>
+        </form>
+      {% endraw %}
+    </script>
+    <script defer id="JsQty" type="text/template">
+      {% raw %}
+        <div class="js-qty">
+          <button type="button" class="js-qty__adjust js-qty__adjust--minus" data-id="{{key}}" data-qty="{{itemMinus}}" aria-label="{% endraw %}{{ 'cart.label.reduce_quantity' | t }}{% raw %}">
+            <span class="icon icon-minus" aria-hidden="true"></span>
+            <span class="icon__fallback-text" aria-hidden="true">&minus;</span>
+          </button>
+          <input type="text" class="js-qty__num" value="{{itemQty}}" min="1" data-id="{{key}}" aria-label="quantity" pattern="[0-9]*" name="{{inputName}}" id="{{inputId}}">
+          <button type="button" class="js-qty__adjust js-qty__adjust--plus" data-id="{{key}}" data-qty="{{itemAdd}}" aria-label="{% endraw %}{{ 'cart.label.increase_quantity' | t }}{% raw %}">
+            <span class="icon icon-plus" aria-hidden="true"></span>
+            <span class="icon__fallback-text" aria-hidden="true">+</span>
+          </button>
+        </div>
+      {% endraw %}
+    </script>
+
+  {% endif %}
+
+
+<!-- BEEKETINGSCRIPT CODE START -->{% include 'bk-tracking' %}<!-- BEEKETINGSCRIPT CODE END -->
+<!-- include 'fresh-credit' -->
+ 
+{% include 'special-offers' %}
+<script defer type="text/javascript">
+var laybuyContainer = '.lay-buy-section';
+var laybuyStyleOverides = {}
+var laybuyLogoStyleOverides = {}
+    var laybuyPopupTypeOnline = true;
+  </script>
+  {% include 'laybuy' %}
+  
+
+{%comment%}
+{% include 'sc-pb-25052016'%}
+{%endcomment%}
+
+   {% include 'smile-initializer' %}
+  
+
+{% render 'preorder-now' %}
+  
+{% include 'swymSnippet' %}
+<div>
+
+ 
+ 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ 'lightcase.css' | asset_url }}">
+<script type="text/javascript" src="{{ 'lightcase.js' | asset_url }}"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('a[data-rel^=lightcase]')
+  .lightcase({
+    'navigator.prev': 'Prev',
+'navigator.next': 'Next',
+slideshow:true,
+swipe:true,
+transition: 'scrollHorizontal'
+  })
+  .unbind("click.lightcase")
+  .on("click.lightcase", function (e) {
+    return false;
+  })
+  .on("mousedown", function (e) {
+    var x = e.clientX;
+
+    $(this).on("mouseup.lighthack", function (e) {
+
+      var newx = e.clientX;
+      if (newx < x + 10 && newx > x - 10) {
+        $(this).lightcase("start");
+      }
+    });
+  });
+	});
+</script>
+<script>
+    jQuery('a[href*="mailto:"]').on('click',  function(){
+        ga('send','event','email-address','click');
+    });
+</script>
+{% render 'th-bundle-product' %}</body>
+<script src="https://cdn.static.kiwisizing.com/SizingPlugin.prod.js?v=273&shop=stax-livin.myshopify.com"></script>
+</html>
+<!-- Addedby BN-systems -->
+<!-- Begin Shopify-Afterpay JavaScript Snippet (v1.0.1) -->
+<script defer type="text/javascript">
+// Editable fields:
+var afterpay_min = 0.04;            // As per your Afterpay contract.
+var afterpay_max = 1000.00;         // As per your Afterpay contract.
+var afterpay_logo_theme = 'colour'; // Can be 'colour', 'black' or 'white'.
+  
+var afterpay_shop_currency = {{ shop.currency | json }};
+var afterpay_shop_money_format = {{ shop.money_format | json }};
+var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
+var afterpay_theme_name = {{ theme.name | json }};
+var afterpay_product = {{ product | json }};
+var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
+var afterpay_cart_total_price = {{ cart.total_price | json }};
+var afterpay_js_snippet_version = '1.0.1';
+</script>
+<script async type="text/javascript" src="https://static.afterpay.com/shopify-afterpay-javascript.js"></script>
+<!-- Addedby BN-systems -->
+	   
+

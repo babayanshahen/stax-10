@@ -1,0 +1,131 @@
+{% assign selProduct = product.title %}
+{% assign first_img = '' %}
+{% assign first_img_url = '' %}
+{% assign img_url = product.images[0] | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+<!-- The Modal -->
+<div id="bn-ALlmyModal" class="bn-modal">
+   <!-- Modal content -->
+   <div class="bn-modal-content">
+      {% comment %} <div class="bn-modal-header">
+         <span class="bn-close">&times;</span>
+      </div> {% endcomment %}
+      <div class="bn-modal-body">
+         <div id="modal_Socks_container">
+         
+            <div class="popupSocksMain_container">
+               
+               <div class="column-2">
+                  
+                  <div class="bn-column-2-content" id="bn-column-2-content">
+                    <div class="bn-modal-header-label-close" >
+                      <div>
+                        <h2> Select your Gift </h2>
+                      </div>
+                      <div>
+                        <span class="bn-modal-close" id="bn-Allmodal-btn-close">&times;</span>
+                      </div>
+                    </div>
+                     
+                     <div class="bn_popup_slick">
+                              {% for product in collections["bn-gift-glasses"].products %}
+                             
+
+                                 <div class="bn_slick_item_container">
+                                    <div class="bn_item_Title" >
+                                          {{ product.title }}
+                                    </div>
+                                    <div class="bn_item_Img_content">
+                                       <img  src="{{ product.images[0] | img_url: '800x800' }}" >
+                                    </div>
+                                   
+                                    <div>
+                                       <form method="post" action="/cart/add" accept-charset="UTF-8" class="shopify-product-form" enctype="multipart/form-data">
+                                          <input type="hidden" name="form_type" value="product">
+                                          <input type="hidden" name="utf8" value="✓">
+                                          {% comment %} <input {% if variant == product.selected_or_first_available_variant %}  selected="selected" {% endif %}  value="{{ product.variants[0].id }}" class="popup_product_select_option" data-img="{{ product.images[0] | img_url: '800x800' }}"> {% endcomment %}
+                                             <select name="id" id="ProductSelect-{{ section.id }}" style="display: none;">
+                                                {% for variant in product.variants %}
+                                                <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} {% unless variant.available %} disabled="disabled" {% endunless %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">{{ variant.title }} - {% if variant.available %}{{ variant.price | money_with_currency }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</option>
+                                                {% endfor %}
+                                             </select>
+                                          <input type="submit" value="Get free " class="btn bn_socks_form_submit_btn" />
+                                       </form>
+                                    </div>
+                                 </div>
+                              {% endfor %}
+                     </div>  
+                    
+                  </div>
+                  <div>
+                  </div>
+               </div>
+             </div>  
+         </div> 
+<!--           <div id="modalBagMain_container" style="display:none">
+               <div class="bn_all_modal_bag_label_close">
+                     <label> Select your Gift </label>
+                     <span class="bn-modal-close" id="bn-Allmodal_bags-btn-close">&times;</span>
+            </div>
+               <div class="bn_popup_bag_slick">
+                  {% for product in collections.Bags.products %}
+                     <div class="bn_slick_item_container">
+                           <div class="bn_item_Title">
+                                 {{ product.title }}
+                           </div>
+                           <div class="bn_item_Img_bag_content">
+                              <img  src="{{ product.images[0] | img_url: '800x800' }}" >
+                           </div>
+                           <div id="bn_popup_bag_form" class="bn-popup-bag-form-section" >
+                     
+                              <form method="post" action="/cart/add" accept-charset="UTF-8" class="shopify-product-form" enctype="multipart/form-data">
+                                          <input type="hidden" name="form_type" value="product">
+                                          <input type="hidden" name="utf8" value="✓">
+                              
+                                 
+                                    <select name="id" class="popup_product_select_bag" style="display: none;">
+                                    <option {% if variant == product.selected_or_first_available_variant %}  selected="selected" {% endif %}  value="{{ product.variants[0].id  }}" class="popup_product_select_bag_option" data-img="{{ product.images[0] | img_url: '800x800' }}">{{ product.title }} - {{ variant.price | money }}</option>
+                                    
+                                    </select>
+                                    <input type="submit" value="Get free " class="btn bn_bag_form_submit_btn" />
+                                 </div>
+                              </form>
+                     </div>
+                  {% endfor %}
+               </div>
+         </div>  -->
+<!--           <div id="modalCapMain_container" style="display:none">
+            <div class="bn_all_modal_cap_label_close">
+               <label> Select your Gift </label>
+               <span class="bn-modal-close" id="bn-Allmodal_caps-btn-close">&times;</span>
+         </div>
+          <div class="bn_popup_cap_slick">
+               {% for product in collections.Caps.products %}
+               <div class="bn_slick_item_container">
+                           <div class="bn_item_Title">
+                                 {{ product.title }}
+                           </div>
+                           <div class="bn_item_Img_bag_content">
+                              <img  src="{{ product.images[0] | img_url: '800x800' }}" >
+                           </div>
+                        <div id="bn_popup_cap_form" class="bn-popup-cap-form-section" >
+                                 <form method="post" action="/cart/add" accept-charset="UTF-8" class="shopify-product-form" enctype="multipart/form-data">
+                                          <input type="hidden" name="form_type" value="product">
+                                          <input type="hidden" name="utf8" value="✓">
+                                 
+                                    
+                                    <select name="id" class="popup_product_select_cap" style="display: none;">
+                                    <option {% if variant == product.selected_or_first_available_variant %}  selected="selected" {% endif %}  value="{{ product.variants[0].id  }}" class="popup_product_select_cap_option" data-img="{{ product.images[0] | img_url: '800x800' }}">{{ product.title }} - {{ variant.price | money }}</option>
+                                    
+                                    </select>
+                                    <input type="submit" value="Get free" class="btn bn_cap_form_submit_btn"/>
+                                 
+                                 </form>
+                           </div>
+                     </div>
+               {% endfor %}
+               </div>
+         </div>  -->
+      </div>
+   </div>
+</div>
+

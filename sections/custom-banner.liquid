@@ -1,0 +1,234 @@
+ {% comment%}
+
+<div class="feature-row" data-section-id="{{ section.id }}" data-section-type="custom-html-section">
+  {% capture image_layout %}
+    <div class="grid__item one-half small--one-whole medium--one-whole feature-row__item feature-row__image ">
+      {% if section.settings.image != blank %}
+        <noscript>
+          <div class="feature-row__image-wrapper">
+            {{ section.settings.image | img_url: '600x600' | img_tag: section.settings.image.alt, 'feature-row__image' }}
+          </div>
+        </noscript>
+        <div class="feature-row__image-wrapper" style="padding-top:{{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100}}%;">
+          {% assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+          <img class="feature-row__image lazyload"
+            src="{{ section.settings.image | img_url: '300x300' }}"
+            data-src="{{ img_url }}"
+            data-widths="[360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
+            data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+            data-sizes="auto"
+            alt="{{ section.settings.image.alt | escape }}">
+        </div>
+      {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+  {% endcapture %}
+
+  <div class="feature-row grid large-up--grid--table">
+    {% if section.settings.layout == 'left' %}
+      {{ image_layout }}
+    {% endif %}
+
+    <div class="grid__item one-half small--one-whole medium--one-whole feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }} ">
+      <div class="feature-row__content">
+        {% if section.settings.title != blank %}
+          <h2>{{ section.settings.title | escape }}</h2>
+        {% endif %}
+        {% if section.settings.text != blank %}
+          <div class="rte-setting featured-row__subtext">{{ section.settings.text }}</div>
+        {% endif %}
+        {% if section.settings.button_label_custom != blank and section.settings.button_link_custom != blank %}
+          <a href="{{ section.settings.button_link_custom }}" class="btn">
+            {{ section.settings.button_label_custom | escape }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if section.settings.layout == 'right' %}
+      {{ image_layout }}
+    {% endif %}
+  </div>
+</div>
+ {% endcomment%}
+
+<div id="shopify-section-{{ section.id }}" class="bn-section-2020 shopify-section index-section custom-html-section">
+  <div class="grid grid--uniform" data-section-id="{{ section.id }}" data-section-type="custom-html-section">
+    <div class=" ">
+      <!--     <div class="page-width"> -->
+      <div id="banner_custom_1">
+        
+        
+           
+          
+        <div class="banner_section">
+          {% if section.settings.title != blank %}
+          <h2>{{ section.settings.title | escape }}</h2>
+        {% endif %}
+          <div class="banner_section_content">
+            
+            {% if section.settings.title-second != blank %}
+            <h3>{{ section.settings.title-second | escape }}</h3>
+            {% endif %}
+          </div>
+        </div>
+        <div id="banner-image-bn">
+          </div>
+          <a href="{{section.settings.text-link}}">
+          <div class="banner_section3">
+            <div class="banner_section_content3_2" >
+              <div>
+                <img class="feature-row__image lazyload" 
+           data-src="{{ img_url }}"
+            src="" 
+           
+            data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+            data-sizes="auto"
+            alt="{{ section.settings.image.alt | escape }}">
+              </div>
+            </div>
+            <div class="night_fever">
+              
+              
+            </div>
+            
+          </div>
+        </a>
+          
+        <div class="banner_section2">
+          <div class="banner_section_content2">
+            <p class="content2_text">
+            {% if section.settings.title-left != blank %}
+            {{ section.settings.title-left | escape }}
+            {% endif %}
+            </p>
+          </div>
+          <div class="banner_section_content2">
+            <div class="banner_section_content2_2">
+              <div>
+                <img class="logo_right__image lazyload"
+            data-src="{{ img_url }}"
+            data-aspectratio="{{ section.settings.logo_right.aspect_ratio }}"
+            data-sizes="auto"
+            alt="{{ section.settings.logo_right.alt | escape }}">
+<!--                 <img src="https://cdn.shopify.com/s/files/1/0854/5504/files/PREMIUM_SEAMLESS_BANNER.jpg?12233"> -->
+              </div>
+              
+            </div>
+
+          </div>
+        </div>
+        
+
+<a href="{{section.settings.text-link-bottom}}">
+          <div class="banner_section3">
+            <div class="banner_section_content3_2" >
+              <div>
+                <img class="feature-row__image lazyload" 
+         
+            data-src="{{ img_url }}"
+            src="" 
+            data-aspectratio="{{ section.settings.image_bottom.aspect_ratio }}"
+            data-sizes="auto"
+            alt="{{ section.settings.image_bottom.alt | escape }}">
+              </div>
+            </div>
+            <div class="night_fever">
+              
+              
+            </div>
+            
+          </div>
+        </a>
+      </div>
+      <!--     </div> -->
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Custom Banner",
+    "class": "index-section custom-banner",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image Top"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_bottom",
+        "label": "Image Bottom"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Image alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Custom Banner"
+      },
+      {
+        "type": "text",
+        "id": "title-second",
+        "label": "Heading 2",
+        "default": "Custom Banner"
+      },
+      {
+        "type": "text",
+        "id": "title-left",
+        "label": "Left title",
+        "default": "Left title"
+      },
+	 {
+        "type": "image_picker",
+        "id": "logo_right",
+        "label": "Logo"
+      },
+      {
+        "type": "text",
+        "id": "text-link",
+        "label": "link here top",
+        "default": "link here top"
+      },
+      {
+        "type": "text",
+        "id": "text-link-bottom",
+        "label": "link here bottom",
+        "default": "link here bottom"
+      },
+      {
+        "type": "text",
+        "id": "button_label_custom",
+        "label": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "button_link_custom",
+        "label": "Button link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "BN-Systems Custom Banner",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

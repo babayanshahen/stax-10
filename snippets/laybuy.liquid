@@ -1,0 +1,295 @@
+<!-- Begin laybuy Liquid Snippet for Shopify v1.04 -->
+{% if template.name == 'product' %}
+{% assign laybuy_logo = '<img  src="https://www.laybuy.com/assets/laybuy-logo-small.svg" id="laybuy-logo" alt="Laybuy"> '  %}
+{% assign laybuy_count_eligible_variants = 0 %}
+{% assign laybuy_supported_currencies = 'AUD, NZD, GBP' | split: ', ' %}
+{% assign laybuy_minimum_value_in_cents = 1 %}
+{% if shop.currency == 'AUD' or shop.currency == 'NZD' %}
+  {% assign dollar_sign = '$' %}
+  {% assign laybuy_maximum_value_in_cents = 144000 %}
+{% elsif shop.currency == 'GBP' %}
+  {% assign dollar_sign = '£' %}
+  {% assign laybuy_maximum_value_in_cents = 72000 %}
+{% endif %}
+{% assign laybuy_number_of_instalments = 6 %}
+{% assign laybuy_maximum_instalment_value_in_cents = laybuy_maximum_value_in_cents | divided_by: laybuy_number_of_instalments %}
+{% assign over_max_price_threshold = false %}
+{% if product.selected_or_first_available_variant.price >= laybuy_maximum_value_in_cents %}
+    {% assign over_max_price_threshold = true %}
+    {% assign laybuy_line_1 = 'Or from ' %}
+{% else %}
+    {% assign over_max_price_threshold = false %}
+    {% assign laybuy_line_1 = 'Or 6 weekly interest free payments from ' %}
+{% endif %}
+{% capture laybuy_line_2 %}today & {{ laybuy_number_of_instalments | minus: 1 }} weekly interest free payments of{% endcapture %}
+{% assign laybuy_line_3 = ' with ' %}
+{% if laybuy_supported_currencies contains shop.currency %}
+  {% for laybuy_variant in product.variants %}
+    {% if laybuy_variant.available and laybuy_variant.price >= laybuy_minimum_value_in_cents %}
+      {% assign laybuy_count_eligible_variants = laybuy_count_eligible_variants | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if laybuy_count_eligible_variants > 0 %}
+  <p class="laybuy-paragraph" style="display:{% if product.selected_or_first_available_variant.available and product.selected_or_first_available_variant.price >= laybuy_minimum_value_in_cents %}flex{% else %}none{% endif %};margin-bottom:0;" data-product-id="{{ product.id }}">
+    <span class="laybuy-text1">{{ laybuy_line_1 }}</span>
+    <span class="laybuy-instalments first-instalment-price">
+      {% if product.selected_or_first_available_variant.price >= laybuy_maximum_value_in_cents %}
+        {% assign difference = product.selected_or_first_available_variant.price | minus: laybuy_maximum_value_in_cents %}
+        {% assign first_instalment = laybuy_maximum_instalment_value_in_cents | plus: difference %}
+        {{ dollar_sign }}{{ first_instalment | round | money_without_currency }}
+      {% else %}
+        {{ dollar_sign }}{{ product.selected_or_first_available_variant.price | divided_by: laybuy_number_of_instalments | round | money_without_currency }}
+      {% endif %}
+    </span>
+    <span class="laybuy-text2" style="display:{% if over_max_price_threshold %}inline{% else %}none{% endif %};">{{ laybuy_line_2 }}</span>
+    <span class="laybuy-instalments max-instalment-price" style="display:{% if over_max_price_threshold %}inline{% else %}none{% endif %};">
+      {{ dollar_sign }}{{ laybuy_maximum_instalment_value_in_cents | round | money_without_currency }}
+    </span>
+    <span class="laybuy-text3">{{ laybuy_line_3 }}</span>
+    {{ laybuy_logo }}
+    <a class="laybuy-link laybuy-link-inner" href="https://www.laybuy.com/how-it-works" target="_self">
+      what's this?
+    </a>
+  </p>
+  <script defer type="text/javascript">
+  (function () {
+    var $laybuy_p = document.querySelector('.laybuy-paragraph');
+    if (typeof laybuyStyleOverides != 'undefined' && laybuyStyleOverides != null) {
+      for (style in laybuyStyleOverides) {
+        $laybuy_p.style[style] = laybuyStyleOverides[style];
+      }
+    }
+    if (typeof laybuyLogoStyleOverides != 'undefined' && laybuyLogoStyleOverides != null) {
+      for (style in laybuyLogoStyleOverides) {
+        $laybuy_p.querySelector('#laybuy-logo').style[style] = laybuyLogoStyleOverides[style];
+      }
+    }
+    document.querySelectorAll(laybuyContainer).forEach(function (element, index) {
+      if (index === 0) {
+        element.appendChild($laybuy_p);
+      } else {
+        var cloned_node = $laybuy_p.cloneNode(true);
+        element.appendChild(cloned_node);
+      }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof laybuy === 'undefined') {
+        var Laybuy = { products: [] };
+        var $popup_wrapper, $popup_outer, $popup_inner, $popup_iframe, $close_button;
+        $popup_wrapper = document.createElement('div');
+        $popup_wrapper.setAttribute('id', 'laybuy-popup-wrapper');
+        document.querySelector('body').appendChild($popup_wrapper);
+        $popup_wrapper.addEventListener('click', function (event) {
+          Laybuy.closePopup(event);
+        });
+        $popup_outer = document.createElement('div');
+        $popup_outer.setAttribute('id', 'laybuy-popup-outer');
+        $popup_wrapper.appendChild($popup_outer);
+        $popup_inner = document.createElement('div');
+        $popup_inner.setAttribute('id', 'laybuy-popup-inner');
+        $popup_outer.appendChild($popup_inner);
+        $popup_iframe = document.createElement('iframe');
+        if (laybuyPopupTypeOnline) {
+          $popup_iframe.setAttribute('src', 'https://laybuy.surge.sh/');
+        } else {
+          $popup_iframe.setAttribute('src', 'https://laybuy-in-store.surge.sh/');
+        }
+        $popup_inner.appendChild($popup_iframe);
+        $close_button = document.createElement('a');
+        $close_button.setAttribute('href', '#');
+        $close_button.style.position = 'absolute';
+        $close_button.style.right = '8px';
+        $close_button.style.top = '8px';
+        $close_button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" width="24px" height="24px"><g id="surface1"><path style=" " d="M 16 3 C 8.832031 3 3 8.832031 3 16 C 3 23.167969 8.832031 29 16 29 C 23.167969 29 29 23.167969 29 16 C 29 8.832031 23.167969 3 16 3 Z M 16 5 C 22.085938 5 27 9.914063 27 16 C 27 22.085938 22.085938 27 16 27 C 9.914063 27 5 22.085938 5 16 C 5 9.914063 9.914063 5 16 5 Z M 12.21875 10.78125 L 10.78125 12.21875 L 14.5625 16 L 10.78125 19.78125 L 12.21875 21.21875 L 16 17.4375 L 19.78125 21.21875 L 21.21875 19.78125 L 17.4375 16 L 21.21875 12.21875 L 19.78125 10.78125 L 16 14.5625 Z "/></g></svg>';
+        $popup_inner.appendChild($close_button);
+        $close_button.addEventListener('click', function (event) {
+          Laybuy.closePopup(event);
+        });
+        Laybuy.launchPopup = function (event) {
+          $popup_wrapper = document.getElementById('laybuy-popup-wrapper');
+          if ($popup_wrapper) $popup_wrapper.style.display = 'block';
+          event.preventDefault();
+        };
+        Laybuy.closePopup = function (event) {
+          document.getElementById('laybuy-popup-wrapper').style.display = 'none';
+          event.preventDefault();
+        };
+        Laybuy.init = function() {
+          var $laybuy_links = document.querySelectorAll('.laybuy-paragraph > a.laybuy-link');
+          Array.from($laybuy_links).forEach(function (link) {
+            link.onclick = function (event) {
+              Laybuy.launchPopup(event);
+            };
+          });
+          document.querySelector('body form[action^="/cart/add"]').addEventListener('change', function (event) {
+            variant_changed(event);
+          });
+          function variant_changed (event) {
+            var $form = document.querySelector('form[action^="/cart/add"]');
+            var $laybuy_paragraph = null;
+            var should_show_instalments = false;
+            var selected_variant_id;
+            setTimeout(function () {
+              function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+              selected_variant_id = parseInt(document.querySelector('form[action^="/cart/add"]').querySelector('input[name=id]:checked, select[name=id], input[name=id], hidden[name=id]').value, 10);
+              var over_max_price_threshold = false;
+              var first_instalment = 0;
+              if (isNaN(selected_variant_id)) {
+                var $variant_options = $form.querySelectorAll('input[name=id][value], select[name=id] option[value], hidden[name=id][value]');
+                $variant_options = [].concat(_toConsumableArray($variant_options)).filter(function (element, index) {
+                  return $(element).attr('value').match(/^[1-9][0-9]*$/);
+                });
+                $variant_options.forEach(function (element, index) {
+                  Laybuy.products.forEach(function (product, product_index) {
+                    product.variants.forEach(function (variant, variant_index) {
+                      if (element.getAttribute('selected', 'selected') && variant.id == element.value) {
+                        selected_variant_id = variant.id;
+                        $laybuy_paragraph = document.querySelector('.laybuy-paragraph[data-product-id="' + product.id + '"]');
+                        return false;
+                      }
+                    });
+                    if ($laybuy_paragraph !== null) {
+                      return false;
+                    }
+                  });
+                  if ($laybuy_paragraph !== null) {
+                    return false;
+                  }
+                });
+              }
+              if (selected_variant_id > 0) {
+                Laybuy.products.forEach(function (product, product_index) {
+                  product.variants.forEach(function (variant, variant_index) {
+                    if (variant.id == selected_variant_id) {
+                      $laybuy_paragraph = document.querySelectorAll('.laybuy-paragraph[data-product-id="' + product.id + '"]');
+                      if (variant.available && variant.price >= {{ laybuy_minimum_value_in_cents }} && variant.price <= {{ laybuy_maximum_value_in_cents }}) {
+                        should_show_instalments = true;
+                        over_max_price_threshold = false;
+                        $laybuy_paragraph.forEach(function ($paragraph) {
+                          $paragraph.querySelector('.laybuy-instalments.first-instalment-price').innerHTML = '{{ dollar_sign }}' + (Math.round(variant.price / 6) / 100).toFixed(2);
+                          $paragraph.querySelector('.laybuy-instalments.max-instalment-price').style.display = 'none';
+                        });
+                      }
+                      if (variant.available && variant.price >= {{ laybuy_minimum_value_in_cents }} && variant.price >= {{ laybuy_maximum_value_in_cents }}) {
+                        should_show_instalments = true;
+                        over_max_price_threshold = true;
+                        first_instalment = ({{ laybuy_maximum_instalment_value_in_cents }} + (variant.price - {{ laybuy_maximum_value_in_cents }}));
+                        $laybuy_paragraph.forEach(function ($paragraph) {
+                          $paragraph.querySelector('.laybuy-instalments.first-instalment-price').innerHTML = '{{ dollar_sign }}' + (Math.round(first_instalment) / 100).toFixed(2);
+                          $paragraph.querySelector('.laybuy-instalments.max-instalment-price').innerHTML = '{{ dollar_sign }}' + (Math.round({{ laybuy_maximum_instalment_value_in_cents }}) / 100).toFixed(2);
+                          $paragraph.querySelector('.laybuy-instalments.max-instalment-price').style.display = 'inline';
+                        });
+                      }
+                    }
+                  });
+                });
+              }
+              if ($laybuy_paragraph !== null) {
+                if (should_show_instalments) {
+                  if (!over_max_price_threshold) {
+                    $laybuy_paragraph.forEach(function ($paragraph) {
+                      $paragraph.querySelector('.laybuy-text1').innerHTML = 'Or ' + {{ laybuy_number_of_instalments }} + ' weekly interest free payments from ';
+                      $paragraph.querySelector('.laybuy-text2').innerHTML = '';
+                      $paragraph.querySelector('.laybuy-text2').style.display = 'none';
+                      $paragraph.style.display = 'flex';
+                    });
+                  } else {
+                    $laybuy_paragraph.forEach(function ($paragraph) {
+                      $paragraph.querySelector('.laybuy-text1').innerHTML = 'Or from ';
+                      $paragraph.querySelector('.laybuy-text2').innerHTML = '{{ laybuy_line_2 }}';
+                      $paragraph.querySelector('.laybuy-text2').style.display = 'inline';
+                      $paragraph.style.display = 'flex';
+                    });
+                  }
+                } else {
+                  $laybuy_paragraph.forEach(function ($paragraph) {
+                    $paragraph.style.display = 'none';
+                  });
+                }
+              }
+            }, 10)
+          }
+        }
+        Laybuy.init();
+      }
+      Laybuy.products.push({{ product | json }});
+    });
+  }());
+  </script>
+  <style>
+    .laybuy-paragraph {
+      display    : -webkit-flex;
+      display    : -ms-flexbox;
+      display    : flex;
+      flex-wrap  : wrap;
+      align-items: center;
+      font-size  : 1rem;
+      color      : #000;
+    }
+    .laybuy-paragraph > * {
+      margin-right: 0.25em;
+    }
+    .laybuy-paragraph span.first-instalment-price {
+      font-weight: 600;
+    }
+    .laybuy-paragraph img#laybuy-logo {
+      width : 90px;
+      height: 20px;
+    }
+    .laybuy-paragraph a.laybuy-link {
+      font-size: 0.7rem;
+      color    : inherit;
+    }
+    #laybuy-popup-wrapper {
+      position: fixed;
+      display : none;
+      z-index : 999999999;
+      left    : 0;
+      top     : 0;
+      right   : 0;
+      bottom  : 0;
+      overflow: auto;
+    }
+    #laybuy-popup-outer {
+      display                : -webkit-flex;
+      display                : -ms-flexbox;
+      display                : flex;
+      -webkit-justify-content: center;
+      -ms-flex-pack          : center;
+      justify-content        : center;
+      -webkit-align-content  : center;
+      -ms-flex-line-pack     : center;
+      align-content          : center;
+      -webkit-align-items    : center;
+      -ms-flex-align         : center;
+      align-items            : center;
+      width                  : 100%;
+      min-height             : 100%;
+      background-color       : rgba(0, 0, 0, 0.3);
+    }
+    #laybuy-popup-inner {
+      width        : 90vw;
+      max-width    : 620px;
+      height       : 482px;
+      position     : relative;
+      border-radius: 0.65em;
+    }
+    #laybuy-popup-inner > iframe {
+      width     : 100%;
+      height    : 100%;
+      background: transparent;
+      border    : 0;
+    }
+    @media screen and (max-width: 545px) {
+      #laybuy-popup-inner {
+        height: 800px;
+        margin: 2em 0 0;
+      }
+    }
+  </style>
+{% endif %}
+{% endif %}
+
+<!-- End laybuy Liquid Snippet for Shopify v1.04 -->

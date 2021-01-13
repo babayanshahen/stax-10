@@ -1,0 +1,73 @@
+{% include 'aaa-product-page-filter' %}{% capture hidden_page_unless_authorized %}
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+<div id="product-desktop">
+	{% section 'product-template' %}
+</div>
+<div id="product-mobile">
+	{% section 'product-template-mobile' %}
+</div>
+<script>
+	if($(window).width()<760){
+		$("#product-desktop").html("");
+	}
+	else{
+		$("#product-mobile").html("");
+	}
+	
+
+</script>
+
+<script>
+  // Override default values of theme.strings for each template.
+  // Alternate product templates can change values of
+  // add to cart button, sold out, and unavailable states here.
+  window.productStrings = {
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }}
+  }
+</script>
+
+{% comment %}
+{% include 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true %}
+
+{% endcomment %}
+
+
+{% endcapture %}{% include 'hidden-collections.require-authorization' %}
+
+<script type="text/javascript">
+  var _learnq = _learnq || [];
+
+  var item = {
+    Name: {{ product.title|json }},
+    ProductID: {{ product.id|json }},
+    Categories: {{ product.collections|map:'title'|json }},
+    ImageURL: "https:{{ product.featured_image.src|img_url:'grande' }}",
+    URL: "{{ shop.secure_url }}{{ product.url }}",
+    Brand: {{ product.vendor|json }},
+    Price: {{ product.price|money|json }},
+    CompareAtPrice: {{ product.compare_at_price_max|money|json }}
+  };
+
+  _learnq.push(['track', 'Viewed Product', item]);
+  _learnq.push(['trackViewedItem', {
+    Title: item.Name,
+    ItemId: item.ProductID,
+    Categories: item.Categories,
+    ImageUrl: item.ImageURL,
+    Url: item.URL,
+    Metadata: {
+      Brand: item.Brand,
+      Price: item.Price,
+      CompareAtPrice: item.CompareAtPrice
+    }
+  }]);
+</script>
+<script type="text/javascript">
+  var _learnq = _learnq || [];
+  document.querySelector('.btn--add-to-cart').addEventListener('click',function (){
+    _learnq.push(['track', 'Added to Cart', item]);
+  });
+</script>

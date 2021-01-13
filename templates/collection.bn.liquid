@@ -1,0 +1,7 @@
+{% include 'aaa_mem_helper' with 'collection' %}{% capture hidden_page_unless_authorized %}
+{% comment %}
+  The contents of the collection.liquid template can be found in /sections/collection-template.liquid
+{% endcomment %}
+
+{% section 'collection-bn-template' %}
+{% endcapture %}{% include 'hidden-collections.require-authorization' %}

@@ -1,0 +1,194 @@
+<div class="bn_count_down_whloe_one_container">
+  <!-- <div class="bn-container"></div> -->
+  {% if section.settings.backgroundImage01 != blank %}
+    <a href="{{ section.settings.url01}}" class="">
+      <div class="bn_count_down_background"  data-mobile-style="background-image:url({{ section.settings.backgroundImage02 | img_url: '800x'}});background-repeat: no-repeat;background-size: cover;">
+        <img class="bn_count_down_image" src="{{ section.settings.backgroundImage01 | img_url: '1500x' }}">
+        <img class="bn_count_down_mobileimage bn_image_none" src="{{ section.settings.backgroundImage02 | img_url: '800x'}}">
+
+        {% comment %} <div class="bn_count_down_timer_container" style="background-color: {{ section.settings.background_color | color_modify: 'alpha', 0.35 }};"> {% endcomment %}
+
+          {% if section.settings.count_down_position == "right" %}
+            <div class="bn_count_down_timer_container" style="background-color: {{ section.settings.background_color }};">
+                <p   class="bn_count_down_timer_container_text" style="color: {{ section.settings.text_color }};">{{ section.settings.bn_count_down_timer_text}}</p>
+                <div class="pomodoro bn_cout_down_timer_content">
+                    <div id="clock" class="row">
+                        <div class="hidden year" data-select="{{section.settings.year}}"></div>
+                        <div class="hidden days" data-select="{{section.settings.day}}"></div>
+                        <div class="hidden hours" data-select="{{section.settings.hour}}"></div>
+                        <div class="hidden minutes" data-select="{{section.settings.minute}}"></div>
+                        <div class="hidden seconds" data-select="{{section.settings.second}}"></div>
+                        <div class="hidden timezone" data-select="{{section.settings.timezone}}"></div>
+                      <div class="timer"><div class="middle"></div></div>
+                    </div>
+                  </div>
+                  <div class="bn_count_down_text_and_button_container">
+                    <h3 class="bn_count_down_buy_now_text" style="color:{{ section.settings.image_subheading_03_color}}">{{ section.settings.image_subheading_03}}</h3>
+                    {% if section.settings.image_03_button_text != blank %}
+                      <button class="bn_count_down_buy_now " onclick="location.href='{{ section.settings.url01}}'" style="color:{{ section.settings.image_03_button_text_color}};background-color:{{ section.settings.image_03_button_background_color}}">
+                        {{ section.settings.image_03_button_text}}
+                      </button>
+                    {% endif %}
+                  </div>
+            </div>
+          {% endif %}
+          {% if section.settings.count_down_position == "left" %}
+            <div class="bn_count_down_timer_container_flex_start" style="background-color:{{ section.settings.background_color | color_modify: 'alpha', 0.35 }};"> 
+                <p   class="bn_count_down_timer_container_text_left" style="color: {{ section.settings.text_color }};">{{ section.settings.bn_count_down_timer_text}}</p>
+                <div class="pomodoro bn_cout_down_timer_content_left">
+                    <div id="clock" class="row">
+                        <div class="hidden year" data-select="{{section.settings.year}}"></div>
+                        <div class="hidden days" data-select="{{section.settings.day}}"></div>
+                        <div class="hidden hours" data-select="{{section.settings.hour}}"></div>
+                        <div class="hidden minutes" data-select="{{section.settings.minute}}"></div>
+                        <div class="hidden seconds" data-select="{{section.settings.second}}"></div>
+                        <div class="hidden timezone" data-select="{{section.settings.timezone}}"></div>
+                      <div class="timer"><div class="middle"></div></div>
+                    </div>
+                  </div>
+                  <div class="bn_count_down_text_and_button_container">
+                    <h3 class="bn_count_down_buy_now_text" style="color:{{ section.settings.image_subheading_03_color}}">{{ section.settings.image_subheading_03}}</h3>
+                    {% if section.settings.image_03_button_text != blank %}
+                      <button class="bn_count_down_buy_now " onclick="location.href='{{ section.settings.url01}}'" style="color:{{ section.settings.image_03_button_text_color}};background-color:{{ section.settings.image_03_button_background_color}}">
+                        {{ section.settings.image_03_button_text}}
+                      </button>
+                    {% endif %}
+                  </div>
+            </div>
+          {% endif %}
+        </div>
+        
+    </a>
+  {% endif %}
+  
+</div>
+
+{% schema %}
+{
+  "name": "Count Down Timer",
+  "class": "index-section featured-video-section-type-2",
+  "settings": [
+  {
+    "type": "select",
+    "id": "count_down_position",
+    "options": [
+       { "value": "left", "label": "Left"},
+       { "value": "right", "label": "Right"}
+    ],
+    "label": "Position",
+    "default":  "right"
+  },
+  {
+    "type": "color",
+    "id": "background_color",
+    "label": "Background color",
+    "default": "#e5e5e5"
+  },
+    {
+      "id": "bn_count_down_timer_text",
+      "type": "text",
+      "label": "Heading",
+      "default": "Title"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type":"header",
+      "content": "Input Compliting Date",
+      "info":"example: Jun 1 2020 23:00:00"
+    },
+    {
+        "type": "text",
+        "id":"year",
+        "label":"Year",
+        "info":"Please input year here"
+    },
+    {
+        "type": "text",
+        "id":"day",
+        "label":"Days",
+        "info":"Please input  Day here. (for ex. Jun 11)."
+    },
+    {
+        "type": "text",
+        "id":"hour",
+        "label":"Hour",
+        "info":"Please input  Hour here."
+    },
+    {
+        "type": "text",
+        "id":"minute",
+        "label":"Minutes",
+        "info":"Please input  Minutes here."
+    },
+    {
+        "type": "text",
+        "id":"second",
+        "label":"Seconds",
+        "info":"Please input  Seconds here."
+    },
+    {
+      "type": "text",
+      "id":"timezone",
+      "label":"Timezone",
+      "info":"Please input your Timezone here.(for ex. 01 or 08 or 11 etc)"
+  },
+    {
+      "type": "image_picker",
+      "id": "backgroundImage01",
+      "label": "Background image "
+    },
+    {
+      "type": "text",
+      "id": "image_subheading_03",
+      "label": "Text",
+      "default": "Text03"
+      },
+    {
+      "type": "color",
+      "id": "image_subheading_03_color",
+      "label": "Text Color",
+      "default": "#3D4246"
+      },
+    {
+      "type": "text",
+      "id": "image_03_button_text",
+      "label": "Text",
+      "default": "Shop Now"
+      },
+    {
+      "type": "color",
+      "id": "image_03_button_text_color",
+      "label": "Button Text Color",
+      "default": "#3D4246"
+      },
+    {
+        "type": "color",
+        "id": "image_03_button_background_color",
+        "label": "Button Background Color",
+        "default": "#3D4246"
+        }, 
+    {
+      "type": "url",
+      "id": "url01",
+      "label": "Link"
+    },{
+      "type": "image_picker",
+      "id": "backgroundImage02",
+      "label": "Mobile Background image "
+    } 
+    
+
+  ],
+  "presets": [
+    {
+      "name": "Count Down Timer",
+      "category": "Date"
+    }
+  ]
+}
+{% endschema %}

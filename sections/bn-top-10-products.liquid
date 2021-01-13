@@ -1,0 +1,256 @@
+{% if section.settings.product_heading != blank %}
+<div class="bn_top_10_heading_container">
+  <h1 class="bn_top_10_heading_text">{{ section.settings.product_heading }}</h1>
+</div>
+{% endif %}
+<div class="bn_top_10_product_container bn-container">
+  {% if section.settings.product_image_1 != blank %}
+    <div class="bn_top_10_product_container_element bn_top_Product_1 bn_border bn_border_right_none bn_border_bottom_none">
+      	<h1 class="bn_top_10_product_container_element_sequence_number">{{ section.settings.product_sequence_number_1 }} </h1>
+        <a href="{{ section.settings.product_link_1 }}" class"bn_top_10_product_container_element_link">
+            <img src="{{ section.settings.product_image_1 | img_url: '800x'}}" />
+        </a> 
+    </div>
+  {% endif %}
+  {% if section.settings.product_image_2 != blank %}
+    <div class="bn_top_10_product_container_element bn_top_Product_2 bn_border bn_border_right_none bn_border_bottom_none">
+      	<h1 class="bn_top_10_product_container_element_sequence_number">{{ section.settings.product_sequence_number_2 }} </h1>
+        <a href="{{ section.settings.product_link_2 }}" class"bn_top_10_product_container_element_link">
+            <img src="{{ section.settings.product_image_2 | img_url: '800x'}}" /> 
+        </a>
+    </div>
+  {% endif %}
+  {% if section.settings.product_image_3 != blank %}
+    <div class="bn_top_10_product_container_element bn_top_Product_3 bn_border bn_border_right_none bn_border_bottom_none">
+      	<h1 class="bn_top_10_product_container_element_sequence_number">{{ section.settings.product_sequence_number_3 }} </h1>
+        <a href="{{ section.settings.product_link_3 }}" class"bn_top_10_product_container_element_link">
+            <img src="{{ section.settings.product_image_3 | img_url: '800x'}}" /> 
+        </a>
+    </div>
+  {% endif %}
+  {% if section.settings.product_image_4 != blank %}
+    <div class="bn_top_10_product_container_element bn_top_Product_4 bn_border bn_border_right_none bn_border_bottom_none">
+      	<h1 class="bn_top_10_product_container_element_sequence_number">{{ section.settings.product_sequence_number_4 }} </h1>
+        <a href="{{ section.settings.product_link_4 }}" class"bn_top_10_product_container_element_link">
+            <img src="{{ section.settings.product_image_4 | img_url: '800x'}}" />
+        </a> 
+    </div>
+  {% endif %}
+  {% if section.settings.product_image_5 != blank %}
+    <div class="bn_top_10_product_container_element bn_top_Product_5 bn_border bn_border_bottom_none">
+      	<h1 class="bn_top_10_product_container_element_sequence_number">{{ section.settings.product_sequence_number_5 }} </h1>
+        <a href="{{ section.settings.product_link_5 }}" class"bn_top_10_product_container_element_link">
+            <img src="{{ section.settings.product_image_5 | img_url: '800x'}}" />
+        </a>
+    </div>
+  {% endif %}
+  {% if section.settings.product_image_6 != blank %}
+    <div class="bn_top_10_product_container_element bn_top_Product_6 bn_border bn_border_right_none">
+      	<h1 class="bn_top_10_product_container_element_sequence_number">{{ section.settings.product_sequence_number_6 }} </h1>
+        <a href="{{ section.settings.product_link_6 }}" class"bn_top_10_product_container_element_link">
+            <img src="{{ section.settings.product_image_6 | img_url: '800x'}}" />
+        </a>
+    </div>
+  {% endif %}
+  {% if section.settings.product_image_7 != blank %}
+    <div class="bn_top_10_product_container_element bn_top_Product_7 bn_border bn_border_right_none">
+      	<h1 class="bn_top_10_product_container_element_sequence_number">{{ section.settings.product_sequence_number_7 }} </h1>
+        <a href="{{ section.settings.product_link_7 }}" class"bn_top_10_product_container_element_link">
+            <img src="{{ section.settings.product_image_7 | img_url: '800x'}}" />
+        </a>
+    </div>
+  {% endif %}
+  {% if section.settings.product_image_8 != blank %}
+    <div class="bn_top_10_product_container_element bn_top_Product_8 bn_border bn_border_right_none">
+      	<h1 class="bn_top_10_product_container_element_sequence_number">{{ section.settings.product_sequence_number_8 }} </h1>
+        <a href="{{ section.settings.product_link_8 }}" class"bn_top_10_product_container_element_link">
+            <img src="{{ section.settings.product_image_8 | img_url: '800x'}}" />
+        </a>
+    </div>
+  {% endif %}
+  {% if section.settings.product_image_9 != blank %}
+    <div class="bn_top_10_product_container_element bn_top_Product_9 bn_border bn_border_right_none">
+      	<h1 class="bn_top_10_product_container_element_sequence_number">{{ section.settings.product_sequence_number_9 }} </h1>
+        <a href="{{ section.settings.product_link_9 }}" class"bn_top_10_product_container_element_link">
+            <img src="{{ section.settings.product_image_9 | img_url: '800x'}}" />
+        </a>
+    </div>
+  {% endif %}
+  {% if section.settings.product_image_10 != blank %}
+    <div class="bn_top_10_product_container_element bn_top_Product_10 bn_border">
+      	<h1 class="bn_top_10_product_container_element_sequence_number">{{ section.settings.product_sequence_number_10 }} </h1>
+        <a href="{{ section.settings.product_link_10 }}" class"bn_top_10_product_container_element_link">
+            <img src="{{ section.settings.product_image_10 | img_url: '800x'}}" />
+        </a>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Top 10 Products",
+    "settings": [
+	{
+   "type": "text",
+   "id": "product_heading",
+   "label": "Heading"
+	},
+	{
+   "type": "text",
+   "id": "product_sequence_number_1",
+   "label": "Text"
+	},
+	{
+      "type": "image_picker",
+      "id": "product_image_1",
+      "label": "Product image 1"
+    },
+    {
+      "id": "product_link_1",
+      "type": "url",
+      "label": "Product  link 1"
+    },
+	{
+   "type": "text",
+   "id": "product_sequence_number_2",
+   "label": "Text"
+	},
+	{
+      "type": "image_picker",
+      "id": "product_image_2",
+      "label": "Product image 2"
+    },
+    {
+      "id": "product_link_2",
+      "type": "url",
+      "label": "Product  link 2"
+    },
+	{
+   "type": "text",
+   "id": "product_sequence_number_3",
+   "label": "Text"
+	},
+	{
+      "type": "image_picker",
+      "id": "product_image_3",
+      "label": "Product image 3"
+    },
+    {
+      "id": "product_link_3",
+      "type": "url",
+      "label": "Product  link 3"
+    },
+	{
+   "type": "text",
+   "id": "product_sequence_number_4",
+   "label": "Text"
+	},
+	{
+      "type": "image_picker",
+      "id": "product_image_4",
+      "label": "Product image 4"
+    },
+    {
+      "id": "product_link_4",
+      "type": "url",
+      "label": "Product  link 4"
+    },
+	{
+   "type": "text",
+   "id": "product_sequence_number_5",
+   "label": "Text"
+	},
+	{
+      "type": "image_picker",
+      "id": "product_image_5",
+      "label": "Product image 5"
+    },
+    {
+      "id": "product_link_5",
+      "type": "url",
+      "label": "Product  link 5"
+    },
+	{
+   "type": "text",
+   "id": "product_sequence_number_6",
+   "label": "Text"
+	},
+	{
+      "type": "image_picker",
+      "id": "product_image_6",
+      "label": "Product image 6"
+    },
+    {
+      "id": "product_link_6",
+      "type": "url",
+      "label": "Product  link 6"
+    },
+	{
+   "type": "text",
+   "id": "product_sequence_number_7",
+   "label": "Text"
+	},
+	{
+      "type": "image_picker",
+      "id": "product_image_7",
+      "label": "Product image 7"
+    },
+    {
+      "id": "product_link_7",
+      "type": "url",
+      "label": "Product  link 7"
+    },
+	{
+   "type": "text",
+   "id": "product_sequence_number_8",
+   "label": "Text"
+	},
+	{
+      "type": "image_picker",
+      "id": "product_image_8",
+      "label": "Product image 8"
+    },
+    {
+      "id": "product_link_8",
+      "type": "url",
+      "label": "Product  link 8"
+    },
+	{
+   "type": "text",
+   "id": "product_sequence_number_9",
+   "label": "Text"
+	},
+	{
+      "type": "image_picker",
+      "id": "product_image_9",
+      "label": "Product image 9"
+    },
+    {
+      "id": "product_link_9",
+      "type": "url",
+      "label": "Product  link 9"
+    },
+	{
+   "type": "text",
+   "id": "product_sequence_number_10",
+   "label": "Text"
+	},
+	{
+      "type": "image_picker",
+      "id": "product_image_10",
+      "label": "Product image 10"
+    },
+    {
+      "id": "product_link_10",
+      "type": "url",
+      "label": "Product  link 10"
+    }
+	
+     
+      ],
+    "presets": [{
+      "name": "Top 10 products",
+      "category": "Collection"
+    }]
+  }
+{% endschema %}

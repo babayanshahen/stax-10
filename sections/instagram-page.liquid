@@ -1,0 +1,56 @@
+<div id="section-insta" style="background-color:{{section.settings.div_background_color}}">
+  <div class="bn-custom-content">
+     <img  src="{{ section.settings.InstaPhoto | img_url: 'small' }}" alt="Insta photo"> 
+   
+<!--     <a href="{{ section.settings.link }}" class="btn btn--cta">{{ section.settings.linktext }}</a> -->
+  </div>
+  <div class="bn-custom-text-content"> <a href="{{ section.settings.link }}" target="_blank" style="color:{{section.settings.text_color}}" class="bn-largeSize" >{{ section.settings.text-box }}</a></div>
+</div>
+{% schema %}
+{
+  "name": "Instagram Section",
+  "settings": [
+    {
+      "id": "text-box",
+      "type": "text",
+      "label": "Heading",
+      "default": "Title"
+    },
+ {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color ",
+        "default": "#000000"
+      },
+{
+        "type": "color",
+        "id": "div_background_color",
+        "label": "Section  Color ",
+        "default": "#fff"
+      },
+ {
+        "type": "image_picker",
+        "id": "InstaPhoto",
+        "label": "Insta Photo image"
+      },
+    {
+      "id": "link",
+      "type": "url",
+      "label": "title link"
+    }
+    
+  ],
+  "presets": [
+    {
+      "name": "Instagram Section",
+      "category": "Socisl Section"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

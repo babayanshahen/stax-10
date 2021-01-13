@@ -1,0 +1,209 @@
+<footer class="site-footer" role="contentinfo">
+  {% comment %}
+    Show Shop Links from footer linklist if it has any links
+  {% endcomment %}
+  <div class="footer-top bn_footer_top">
+    <div id="logotype" class="bn_footer_logotype" onclick="window.location = 'https://stax.com.au';">
+      <img  class="brand" alt="Stax." title="Stax." src="https://cdn.shopify.com/s/files/1/0854/5504/files/rsz_stax_logo_black-new.png?v=1584437170" width="155" height="46"> 
+     </div>
+  {% if linklists[section.settings.footer_link_list].links.size > 0 %}
+    <ul class="list--inline site-footer__linklist bn_site_footer_linklist">
+      {% for link in linklists[section.settings.footer_link_list].links %}
+       {% assign child_list_handle = link.title | handleize %}
+       {% if link.links != blank %}
+            {% if child_list_handle == active_child_link_handle %}
+              {% assign active_children = true %}
+            {% else %}
+              {% assign active_children = false %}
+            {% endif %}
+            <li class="action-bar__menu-item action-bar--has-dropdown{% if link.active or active_children %} action-bar--active{% endif %}{% if active_children %} action-bar--disabled{% endif %}" data-child-list-handle="{{ child_list_handle }}" >
+
+              <a href="{{ link.url }}" style="text-transform: uppercase;" aria-controls="{{ child_list_handle | capitalize }}">
+        {{ link.title }}
+              </a>
+
+              {% comment %}
+              <ul id="bn-custom-hover-out" class="menu-hover-out">
+                  {% for childlink in link.links %}
+                    {% if childlink.links != blank %}
+                      {% assign has_active_childlink = false %}
+
+                      {% if childlink.active or childlink.child_active %}
+                        {% assign has_active_childlink = true %}
+                      {% endif %}
+
+                      <li style="display:block;text-align:left;margin-left: 15px" class="{% unless template.name == 'index' %}{% if childlink.active %} drawer-nav__item--active{% endif %}{% endunless %}" aria-haspopup="true">
+                        <div class="drawer-nav__has-sublist{% if has_active_childlink %} drawer-nav--expanded{% endif %}">
+                          <a href="{{ childlink.url }}" class="drawer-nav__link"{% if childlink.active %} aria-current="page"{% endif %}>{{ childlink.title }}</a>
+                          <div class="drawer-nav__toggle">
+                            <button type="button" class="drawer-nav__toggle-button" aria-expanded="{{ has_active_childlink }}" aria-label="{{ childlink.title }} {{ 'layout.navigation.menu' | t }}" aria-controls="Submenu-{{ outerLoopIndex }}-{{ forloop.index }}">
+<!--                               <span class="icon {% if has_active_childlink %}icon-minus{% else %}icon-plus{% endif %}" aria-hidden="true"></span> -->
+                            </button>
+                          </div>
+                        </div>
+                        <ul class="drawer-nav__sublist drawer-nav__sublist--inner" id="Submenu-{{ outerLoopIndex }}-{{ forloop.index }}">
+                          {% for grandchildlink in childlink.links %}
+                            <li class="drawer-nav__item drawer-nav__grandchild{% unless template.name == 'index' %}{% if grandchildlink.active %} drawer-nav__item--active{% endif %}{% endunless %}">
+                              <a href="{{ grandchildlink.url }}" class="drawer-nav__link"{% if grandchildlink.active %} aria-current="page"{% endif %}>{{ grandchildlink.title | escape }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </li>
+                    {% else %}
+                      <li style="display:block;text-align:left;margin-left: 15px" class="{% unless template.name == 'index' %}{% if childlink.active %} drawer-nav__item--active{% endif %}{% endunless %}">
+                        <a href="{{ childlink.url }}" class="drawer-nav__link"{% if childlink.active %} aria-current="page"{% endif %}>{{ childlink.title | escape }}</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+               {% endcomment %}
+<!--                 <span class="icon icon-plus" aria-hidden="true"></span> -->
+          </li>
+          {% else %}
+        <li class="h4"><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <div class="bn_social_list_and_copyright_container">
+        <div class="bn-social-list text-center">
+          <ul class="list--inline social-icons social-icons--footer">
+            {% if settings.social_twitter_link != blank %}
+              <li>
+                <a href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+                  <span class="icon icon-twitter" aria-hidden="true"></span>
+                  <span class="visually-hidden">Twitter</span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_facebook_link != blank %}
+              <li>
+                <a href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+                  <span class="icon icon-facebook" aria-hidden="true"></span>
+                  <span class="visually-hidden">Facebook</span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_pinterest_link != blank %}
+              <li>
+                <a href="{{ settings.social_pinterest_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
+                  <span class="icon icon-pinterest" aria-hidden="true"></span>
+                  <span class="visually-hidden">Pinterest</span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_google_plus_link != blank %}
+              <li>
+                <a href="{{ settings.social_google_plus_link | escape }}" rel="publisher" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Google Plus' }}">
+                  <span class="icon icon-google_plus" aria-hidden="true"></span>
+                  <span class="visually-hidden">Google Plus</span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_instagram_link != blank %}
+              <li>
+                <a href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+                
+                  <span class="icon icon-instagram bn-icon-instagram" aria-hidden="true"></span>
+                  <span class="visually-hidden">Instagram</span>
+               
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_snapchat_link != blank %}
+            <li>
+              <a href="{{ settings.social_snapchat_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Snapchat' }}">
+                <span class="icon icon-snapchat" aria-hidden="true"></span>
+                <span class="visually-hidden">Snapchat</span>
+              </a>
+            </li>
+            {% endif %}
+            {% if settings.social_tumblr_link != blank %}
+              <li>
+                <a href="{{ settings.social_tumblr_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
+                  <span class="icon icon-tumblr" aria-hidden="true"></span>
+                  <span class="visually-hidden">Tumblr</span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_youtube_link != blank %}
+              <li>
+                <a href="{{ settings.social_youtube_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}">
+                  <span class="icon icon-youtube" aria-hidden="true"></span>
+                  <span class="visually-hidden">YouTube</span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_vimeo_link != blank %}
+              <li>
+                <a href="{{ settings.social_vimeo_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Vimeo' }}">
+                  <span class="icon icon-vimeo" aria-hidden="true"></span>
+                  <span class="visually-hidden">Vimeo</span>
+                </a>
+              </li>
+            {% endif %}
+            {% if settings.social_fancy_link != blank %}
+              <li>
+                <a href="{{ settings.social_fancy_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Fancy' }}">
+                  <span class="icon icon-fancy" aria-hidden="true"></span>
+                  <span class="visually-hidden">Fancy</span>
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="bn-copyright-container">
+          <span class="site-footer__copyright">&copy; {{ 'now' | date: '%Y' }}, <a href="/">{{ shop.name }} All rights reserved</a> </span>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="grid text-center large-up--grid--table">
+    <div class="text-center">
+      {% unless shop.enabled_payment_types == empty %}
+        {% assign payment_icons_available = 'amazon_payments,american_express,apple_pay,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,google_pay,interac,jcb,klarna,litecoin,maestro,master,paypal,shopify_pay,visa' | split: ',' %}
+        <ul class="list--inline payment-icons payment-icons--footer bn_footer_ul">
+          <li class='no-margin-b'>
+                <img  class="lazyload" alt="Afterpay" title="Afterpay" data-src="https://cdn.shopify.com/s/files/1/0854/5504/files/afterpay-01-09.png?v=1598972288" width="151" height="31" >
+                <span class="icon__fallback-text">{{ type | replace: '_',' ' }}</span>
+              </li>
+          <li class='no-margin-b'>
+                <img  src="https://cdn.shopify.com/s/files/1/0854/5504/files/laybuy.png?498" alt="laybuy">
+                <span class="icon__fallback-text">{{ type | replace: '_',' ' }}</span>
+              </li>
+          <li class='no-margin-b'>
+                <img  src="https://cdn.shopify.com/s/files/1/0854/5504/files/zippay.png?498" alt="zippay">
+                <span class="icon__fallback-text">{{ type | replace: '_',' ' }}</span>
+              </li>
+          <li class='no-margin-b'>
+                <img  src="https://cdn.shopify.com/s/files/1/0854/5504/files/latitude-log1o.png?v=1585569504" alt="Latitude" width="100">
+                <span class="icon__fallback-text">{{ type | replace: '_',' ' }}</span>
+              </li>
+          {% for type in shop.enabled_payment_types %}
+            {% if payment_icons_available contains type %}
+              <li>
+                <span class="icon icon-{{ type }}" aria-hidden="true"></span>
+                <span class="icon__fallback-text">{{ type | replace: '_',' ' }}</span>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endunless %}
+    </div>
+   
+    
+  </div>
+</footer>
+{% schema %}
+  {
+    "name": "Footer",
+    "class": "footer-section",
+    "settings": [{
+      "type": "link_list",
+      "id": "footer_link_list",
+      "label": "Menu",
+      "default": "footer",
+      "info": "This menu won't show dropdown items"
+      }]
+  }
+{% endschema %}

@@ -1,0 +1,183 @@
+
+<!-- snippets/action-bar.liquid -->
+{% comment %}
+  Action Bar
+    - Only appears on pages which contain a link that is in the action bar
+    - Exceptions: always on for collections. Always off for product.
+
+    To remove the action bar, remove or comment out `{% include 'action-bar' %}
+    anythwere it appears.
+{% endcomment %}
+
+{% assign action_bar_main_active = true %}
+{% for link in linklists[section.settings.action_bar_link_list].links %}
+  {% if link.active or template.name == 'index' or template.name == 'collection' %}
+    {% assign child_list_handle = link.title | handleize %}
+    {% if link.links == blank and link.active %}
+      {% assign action_bar_active_url = link.url %}
+    {% endif %}
+
+    {% if link.links != blank %}
+      {% for childlink in link.links %}
+        {% if childlink.active or link.active %}
+          {% assign active_child_link = true %}
+          {% assign active_child_link_handle = child_list_handle %}
+
+          {% comment %}
+            make sure we're handling duplicate links in the action bar and
+            sub action bar menus.
+          {% endcomment %}
+          {% if childlink.active.url == action_bar_active_url %}
+            {% assign action_bar_main_active = false %}
+          {% else %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+
+  {% comment %}
+    If on index, it should be at the bottom of the hero area
+  {% endcomment %}
+  <div class="action-bar-wrapper {% if template.name == 'index' %} action-bar--hero{% endif %} {% if section.settings.action_bar_link_list == blank %} hide {% endif %}" data-section-id="{{ section.id }}" data-section-type="action-bar-section">
+
+        <div id="logotype" class="bn-logotype bn-logotype-display-none" onclick="window.location = 'https://stax.com.au';">
+           <img  class="brand" alt="Stax." title="Stax." src="https://cdn.shopify.com/s/files/1/0854/5504/files/rsz_stax_logo_black-new.png?v=1584437170" width="155" height="46"> 
+          </div>
+    <nav class="action-bar action-bar--has-menu" role="presentation" style='background-color:transparent;'>
+      <ul class="action-bar__menu--main action-bar__menu list--inline {% if action_bar_main_active %} action-bar--show{% endif %}" id="SiteNav" role="navigation" style='background-color:transparent'>
+        {% comment %}
+          Assign which child linklist is associated with the action bar
+          link
+        {% endcomment %}
+        {% for link in linklists[section.settings.action_bar_link_list].links %}
+          {% assign child_list_handle = link.title | handleize %}
+          {% if link.links != blank %}
+            {% if child_list_handle == active_child_link_handle %}
+              {% assign active_children = true %}
+            {% else %}
+              {% assign active_children = false %}
+            {% endif %}
+            <li class="action-bar__menu-item action-bar--has-dropdown{% if link.active or active_children %} action-bar--active{% endif %}{% if active_children %} action-bar--disabled{% endif %}" data-child-list-handle="{{ child_list_handle }}" >
+
+              <a href="{{ link.url }}" class="action-bar__link" style="background-color:transparent;color:{{section.settings.color_main_menu}};" aria-controls="{{ child_list_handle | capitalize }}">
+				{{ link.title }}
+              </a>
+
+              <ul  class="menu-hover-out">
+                  {% for childlink in link.links %}
+                    {% if childlink.links != blank %}
+                      {% assign has_active_childlink = false %}
+
+                      {% if childlink.active or childlink.child_active %}
+                        {% assign has_active_childlink = true %}
+                      {% endif %}
+
+                      <li style="display:block;text-align:left;margin-left: 15px" class="{% unless template.name == 'index' %}{% if childlink.active %} drawer-nav__item--active{% endif %}{% endunless %}" aria-haspopup="true">
+                        <div class="drawer-nav__has-sublist{% if has_active_childlink %} drawer-nav--expanded{% endif %}">
+                          <a href="{{ childlink.url }}" class="drawer-nav__link"{% if childlink.active %} aria-current="page"{% endif %}>{{ childlink.title }}</a>
+                          <div class="drawer-nav__toggle">
+                            <button type="button" class="drawer-nav__toggle-button" aria-expanded="{{ has_active_childlink }}" aria-label="{{ childlink.title }} {{ 'layout.navigation.menu' | t }}" aria-controls="Submenu-{{ outerLoopIndex }}-{{ forloop.index }}">
+<!--                               <span class="icon {% if has_active_childlink %}icon-minus{% else %}icon-plus{% endif %}" aria-hidden="true"></span> -->
+                            </button>
+                          </div>
+                        </div>
+                        <ul class="drawer-nav__sublist drawer-nav__sublist--inner" id="Submenu-{{ outerLoopIndex }}-{{ forloop.index }}">
+                          {% for grandchildlink in childlink.links %}
+                            <li class="drawer-nav__item drawer-nav__grandchild{% unless template.name == 'index' %}{% if grandchildlink.active %} drawer-nav__item--active{% endif %}{% endunless %}">
+                              <a href="{{ grandchildlink.url }}" class="drawer-nav__link"{% if grandchildlink.active %} aria-current="page"{% endif %}>{{ grandchildlink.title | escape }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </li>
+                    {% else %}
+                      <li style="display:block;text-align:left;margin-left: 15px" class="{% unless template.name == 'index' %}{% if childlink.active %} drawer-nav__item--active{% endif %}{% endunless %}">
+                        <a href="{{ childlink.url }}" class="drawer-nav__link"{% if childlink.active %} aria-current="page"{% endif %}>{{ childlink.title | escape }}</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+<!--                 <span class="icon icon-plus" aria-hidden="true"></span> -->
+        	</li>
+          {% else %}
+            <li class="action-bar__menu-item {% if link.active %}action-bar--active{% endif %}">
+              <a href="{{ link.url }}" style="background-color:transparent;color:{{section.settings.color_main_menu}};" class="action-bar__link">{{ link.title }}</a>
+             
+            </li>
+            
+        {% endif %}
+        {% endfor %}
+      </ul>
+      {% unless template.name == "index" %}
+      {% for link in linklists[section.settings.action_bar_link_list].links %}
+        {% assign child_list_handle = link.title | handleize %}
+        {% if link.links != blank %}
+
+          <ul class=" action-bar__menu--sub bn_action_bar__menu__sub action-bar__menu list--inline  {% if child_list_handle == active_child_link_handle %} action-bar--show{% endif %}" id="{{ child_list_handle | capitalize }}" data-child-list-handle="{{ child_list_handle }}" role="navigation">
+            <li>
+              <button type="button" class="btn action-bar__back  bn_action_bar__back action-bar__link" aria-controls="SiteNav">
+                <span class="icon icon-arrow-left" aria-hidden="true"></span>
+                <span class="icon__fallback-text">{{ 'layout.navigation.action_bar_back' | t }}</span>
+              </button>
+            </li>
+            {% for childlink in link.links %}
+              <li class="action-bar__menu-item {% if childlink.active %}action-bar--active{% endif %}">
+                <a href="{{ childlink.url }}" class="action-bar__link">{{ childlink.title | escape }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endfor %}
+      {% endunless %}
+    </nav>
+  </div>
+
+{% schema %}
+  {
+    "name": "Action bar",
+    "class": "action-bar-section",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "action_bar_link_list",
+        "label": "Menu",
+        "default": "main-menu",
+        "info": "This menu has limited support for dropdown items"
+      },
+      {
+        "type": "color",
+        "id": "color_main_menu",
+        "label": "Sale text",
+        "default": "#fff"
+      }
+    ]
+  }
+{% endschema %}
+<script>
+  
+  function menuMouseOver(t){
+    window.oldHeight = t.parentElement.parentElement.style.height;
+  	t.childNodes[3].classList.add('menu-hover');
+    t.childNodes[3].classList.remove('menu-hover-out');
+    t.parentElement.parentElement.style.height = "160px";
+    t.parentElement.parentElement.style.WebkitTransition = "all 0.3s";
+    t.parentElement.parentElement.style.transition = "all 0.3s"; 
+//     t.childNodes[3].classList.remove('icon');
+//     t.childNodes[3].classList.remove('icon-plus');
+//     t.childNodes[3].classList.add('icon');
+//     t.childNodes[3].classList.add('icon-minus');
+
+//     console.log(t.childNodes[5]);
+  }
+  
+  function menuMouseOut(t){
+    t.childNodes[3].classList.remove('menu-hover');
+    t.childNodes[3].classList.add('menu-hover-out');
+    t.parentElement.parentElement.style.height  = oldHeight;
+  }
+  
+</script>
+
+ 

@@ -1,0 +1,548 @@
+<div itemscope itemtype="http://schema.org/Product" data-section-id="{{ section.id }}" data-section-type="product" data-history-state>{% render 'preorder-now-collection-item', product: product %}
+    {% comment %}
+        Get first variant, or deep linked one
+    {% endcomment %}
+    {% assign current_variant = product.selected_or_first_available_variant %}
+    {% comment %}
+        Get first image
+    {% endcomment %}
+    {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+    {% comment %}
+        Get the text and link for the back button
+    {% endcomment %}
+    {% assign back_url = '/' %}
+    {% assign back_text = 'products.product.back' | t %}
+    {% if collection %}
+        {% assign back_url = collection.url %}
+        {% assign back_text = collection.title %}
+    {% endif %}
+    <div itemprop="brand" itemtype="http://schema.org/Thing" itemscope>
+        <meta itemprop="name" content="{{ shop.name }}"/>
+    </div>
+    <meta itemprop="sku" content="{{ current_variant.sku }}"/>
+    <meta itemprop="image" content="{{ featured_image | img_url: 'grande' }}">
+        <meta itemprop="name" content="{{ product.title }}{% if product.variants.size > 1 and product.selected_variant %} - {{ current_variant.title }}{% endif %}">
+            <div class="product grid grid--uniform grid--no-gutters" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+                    {% assign first_image = featured_image %}
+                    {% if product.images.size > 1 and section.settings.skip_first_product_image and first_image == product.featured_image %}
+                        {% assign first_image = product.images[1] %}
+                    {% endif %}
+                    {% comment %}
+                        Set variables for product image grid
+                    {% endcomment %}
+                    {% if section.settings.product_image_type == 'portrait' %}
+                        {% if product.images.size == 1 %}
+                            {% assign grid_item_width = '' %}
+                        {% elsif product.images.size == 2 and section.settings.skip_first_product_image %}
+                            {% assign grid_item_width = '' %}
+                        {% else %}
+                            {% assign grid_item_width = 'medium-up--one-half' %}
+                        {% endif %}
+                        {% assign is_portrait_image = true %}
+                    {% else %}
+                        {% assign grid_item_width = '' %}
+                    {% endif %}
+                    <style>
+                        .product-col ul.support__images li {
+                            width: 32%;
+                            margin-right: 0.875%;
+                            float: left;
+                            list-style-type: none;
+                            margin-bottom: 0.875%;
+                        }
+                        #ProductSelect-product-template-bag-mobile {
+                            display: block !important;
+                            margin-bottom: 10px;
+                        }
+                        .product-col ul.support__images.desktop--images {
+                            display: block;
+                        }
+                        img {
+                            max-width: 100%;
+                            max-height: 100%;
+                            border: none;
+                            display: block;
+                        }
+                        .product-col #featureimage .featured-image {
+                            max-height: inherit !important;
+                        }
+                        @media only screen and(min-width: 750px) {
+                            .product-col #featureimage .featured-image {
+                                display: block;
+                            }
+                        }
+                        @media only screen and(min-width: 750px) {
+                            .container.page-full-width {
+                                max-width: 95%;
+                                margin: 0 auto;
+                            }
+                            @media only screen and(min-width: 750px) {
+                                .product__breadcrumb {
+                                    margin: 10px 0 20px;
+                                    text-align: left;
+                                    display: block;
+                                }
+                            }
+                            .product-details h2 {
+                                margin-top: 40px;
+                            }
+                            /*       .product-col .product-details {
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+        padding: 0 20px;
+      }
+ */
+                            .product__breadcrumb {
+                                letter-spacing: 0.025rem;
+                                font-family: "Montserrat", Helvetica, Arial, sans-serif;
+                                font-size: 0.7rem;
+                                color: #111;
+                                text-transform: uppercase;
+                            }
+                            #AddToCartForm-product-template {
+                                margin: 0 !important;
+                            }
+                            #ProductSelect-product-template-slides {
+                                display: block !important;
+                                margin-top: 1rem !important;
+                            }
+                            .btn.btn-primary.button,
+                            .product-single__description .rte {
+                                width: 100%;
+                            }
+                            .social-sharing a {
+                                display: flow-root;
+                            }
+                        </style>
+                    {% if product.title != 'STAX. SLIDES WHITE/BLACK (UNISEX)' and  product.title != 'JH SLIDES SNAKE SKIN - BLACK' and  product.title != 'JH SLIDES SNAKE SKIN - PINK' %}
+                            <style>/*       #AddToCartForm-product-template .selector-wrapper{
+        display:none !important;
+      } */</style>
+                        {% else: %}
+                        <style>
+                            #AddToCart-product-template {
+                                display: block !important;
+                                margin: 0 !important;
+                            }
+                            #ProductSelect-product-template- {
+                                display: block !important;
+                                margin-top: 1rem !important;
+                                width: 100%;
+                            }
+                            .btn.btn-primary.button,
+                            .product-single__description .rte {
+                                width: 100%;
+                            }
+                            .social-sharing a {
+                                display: flow-root;
+                            }
+                        }
+                        </style>
+                    {% endif %}
+                    <div id="cache-recomended"></div>
+                    {% if product.images.size > 0 %}
+                        <div class="container page-full-width">
+                            <div class='grid equal'>
+                                <div class="product__photo grid__item">
+                                    <div
+                                        class="grid__item small--one-whole product-col medium-up--seven-twelfths" style="position: relative;">
+                                        <!--             <div class="button-prev-nex">
+                                                        <img src="https://cdn.shopify.com/s/files/1/0854/5504/files/back.png?5969" width="50" height="50" id='arrow-prev'>
+                                                        <img src="https://cdn.shopify.com/s/files/1/0854/5504/files/next.png?6037" width="50" height="50" id='arrow-next'>  
+                                                      </div> -->
+                                        <div id="artur" style="height: auto;" class="support__images desktop--images product_slick">
+                                            <nav class="product__breadcrumb" role="navigation" aria-label="breadcrumbs">
+                                                <span>
+                                                    <a href="/" title="">Home</a>
+                                                </span>
+                                                <span aria-hidden="true">—</span>
+                                                {% if  collection.title !=  null %}
+                                                    <a href="{{ collection.url }}" title="">{{ collection.title }}</a>
+                                                    <span aria-hidden="true">—</span>
+                                                {% endif %}
+                                                <span class="bn_new_color_style">{{ product.title }}</span>
+                                            </nav>
+                                            {% assign first_img = '' %}
+                                            {% assign first_img_url = '' %}
+                                            {% for image in product.images %}
+                                                {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+                                                {% if  forloop.index  == 1 %}
+                                                    {% assign first_img = image %}
+                                                    {% assign first_img_url = img_url %}
+                                                {% endif %}
+                                                <div style="width:49%">
+                                                    <img class="grid-view-item__image lazyload {{ forloop.index }}" data-src="{{ image | img_url: '800x' }}" data-widths="[360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048, 4472]" data-aspectratio="{{ image.aspect_ratio }}" data-sizes="auto" src="" alt="{{ image.alt | escape }}"></div>
+                                                {% endfor %}
+                                            </div>
+                                            {% comment %}
+                                                {% include 'bold-sales-text' %}
+                                                                            {% include 'shappify-sales-clock' %}
+                                            {% endcomment %}
+                                            {% if product.metafields.title.meta_title != blank %}
+                                                <h1>{{ product.metafields.title.meta_title }}</h1>
+                                            {% else %}
+                                                <h1 class="prod-title-desktop">{{ product.title }}</h1>
+                                            {% endif %}
+                                            <div class="product-details">
+                                                {% if section.settings.show_vendor %}
+                                                    <p class="product-item__vendor small--text-center">{{ product.vendor }}</p>
+                                                {% endif %}
+                                                <!--  <h2 itemprop="name">{{ product.title }}</h2> -->
+                                                {% comment %}Start automatically added Judge.me widget{% endcomment %}
+                                                {% include 'judgeme_widgets', widget_type: 'judgeme_preview_badge', concierge_install: true %}
+                                                {% comment %}End automatically added Judge.me widget{% endcomment %}
+                                                <span>{{ collection.title }}</span>
+                                                <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
+                                                    {%- capture 'form_id' -%}AddToCartForm-{{ section.id }}
+                                                    {%- endcapture -%}
+                                                    {%- capture 'form_class' -%}
+                                                        product__form--add-to-cart
+                                                        {% if section.settings.product_form_width == 'large' %}
+                                                            product__form--full-width
+                                                        {% endif %}
+                                                    {%- endcapture -%}
+                                                    {% if product.title != 'STAX. SLIDES WHITE/BLACK (UNISEX)' and  product.title != 'JH SLIDES SNAKE SKIN - BLACK' and  product.title != 'JH SLIDES SNAKE SKIN - PINK' %}
+                                                        <div style="display:none" test='asdasdasd'>
+                                                            {{ product.metafields.colors.product_color }}
+                                                        </div>
+                                                        {% if product.metafields.colors.product_color != blank %}
+                                                            {% assign productColors = product.metafields.colors.product_color | split: ',' %}
+                                                            <div id="product_color">
+                                                                <div class="product_color_content" style="margin-bottom: 10px;">
+                                                                    <h3>Color</h3>
+                                                                    <span id="product_color_item"></span>
+                                                                    <br>
+                                                                        {% for color in productColors %}
+                                                                            {% assign splitedColor = color | split: ':' %}
+                                                                            <div class="check_color_border">
+                                                                                <a href="{{ splitedColor[1] | strip }}">
+                                                                                    <div id="check_color_circle_item" style="background-color:#{{ splitedColor[0] |  strip }}"></div>
+                                                                                </a>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                        {% form 'product', product, id:form_id, class:form_class %}
+                                                            {% comment %}
+                                                                Select element hidden when JS initializes. Safeguard for JS-disabled.
+                                                            {% endcomment %}
+                                                            <select name="id" id="ProductSelect-{{ section.id }}">
+                                                                {% for variant in product.variants %}
+                                                                    <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} {% unless variant.available %} disabled="disabled" {% endunless %} value="{{ variant.id }}" data-sku="{{ variant.sku }}">{{ variant.title }}
+                                                                        -
+                                                                        {% if variant.available %}
+                                                                            {{ variant.price | money_with_currency }}
+                                                                        {% else %}
+                                                                            {{ 'products.product.sold_out' | t }}
+                                                                        {% endif %}
+                                                                    </option>
+                                                                {% endfor %}
+                                                            </select>
+                                                            {% assign price = current_variant.price | money_without_trailing_zeros %}
+                                                            <p class="product__price">
+                                                                <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+                                                                    <meta itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+                                                                        {% if product.compare_at_price_max > product.price %}
+                                                                            <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                                                                            <span class="product__price--reg">{{ current_variant.compare_at_price | money_without_trailing_zeros }}</span>
+                                                                            <span class="product__price--sale">{{ 'products.general.now_price_html' | t: price: price }}</span>
+                                                                        {% else %}
+                                                                            <span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span>
+                                                                            <span class="product__price--reg js-price">
+                                                                                {{ price }}
+                                                                            </span>
+                                                                        {% endif %}
+                                                                    </p>
+                                                                      {% include 'swym-product-view', product: product %}
+                                                                        <div class="custom-swym-btn-container"> 
+                                                                            <button style="background-color:  #535252 !important;" class='btn swym-button swym-add-to-wishlist swym-inject swym-has-fave-count swym-icontext swym-heart disabled swym-added swym-loaded' data-swaction="addToWishlist" data-product-id="{{product.id | json}}">
+                                                                                <span class="swym-wishlist-cta custom-swym-wishlist-cta">Add to Wishlist</span>
+                                                                            </button>
+                                                                        </div>
+                                                                     <div class="bn-for-product-payment-info"> 
+                                                                     
+                                                                              {%- assign latitudepay_price = current_variant.price | divided_by: 10 | money -%}
+                                                                              <div class="custom-latitudepay" style="font-weight:300;margin-bottom:15px;font-size:14px;">
+                                                                                  <a class="custom-latitude-link bn_new_color_style" href="https://www.latitudepay.com" target="_blank" style="display: flex;">
+                                                                                      <img width="115" height="22" src="https://d5gx0tid0xr61.cloudfront.net/latitudepay_250px.png"/>
+                                                                                      {% comment %}
+                                                                                          <div class="new-budge-latitude">      
+                                                                                                                RECOMMENDED	
+                                                                                                              </div>
+                                                                                      {% endcomment %}
+                                                                                  </a>
+                                                                                  or 10 interest free payments from
+                                                                                  <b class="bn_new_color_style">{{ latitudepay_price }}</b>
+                                                                                  {% if current_variant.price < 2000 %}
+                                                                                      on orders over $20
+                                                                                  {% endif %}
+                                                                                  with
+                                                                                  <span style="position:relative;top:3px;white-space:nowrap;display:inline-block;">
+                                                                                      <a style="position:relative;top:-6px;text-decoration:underline;font-size:11px;cursor:pointer;" target="_blank" href="https://www.latitudepay.com/how-it-works/">What's this?</a>
+                                                                                  </span>
+                                                                              </div>
+                                                                       
+                                                                              <div class="zippay">
+                                                                                  <p class="bn_new_color_style">Zippay</p>
+                                                                                  <img src="https://cdn.shopify.com/s/files/1/0854/5504/files/zippay.png?498" alt="zippay" width="50" height="20"></div>
+                                                                       
+                                                                                  <div class="laybuy-bn">
+                                                                                      <div class='lay-buy-section'></div>
+                                                                                      <h4 class="bn_new_color_style">NEW ZEALAND & UK</h4>
+                                                                                  </div>
+                                                                        
+                                                                        </div>
+                                                                        {% if product.available %}
+                                                                            {% if product.tags contains  'bn_pre_order_button' %}
+                                                                                <button data-toggle="modal" data-target=".bd-example-modal-lg" onload="this.stopPropagation()" type="button" name="add" class="btn  btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}">
+                                                                                    <span class="">Pre Order</span>
+                                                                                </button>
+                                                                                <div class="preorder-description">Please note this item is on pre order
+                                                                                </div>
+                                                                            {% else %}
+                                                                                {% if product.tags contains 'new_preorder_style' %}
+                                                                                    {% if product.tags contains 'bn-pre-sale' and product.tags contains 'bn-pre-shipping-6-8' %}
+                                                                                        <p class="weeks-4-6" style="display: none;">SHIPPING IN 6-8 weeks
+                                                                                        </p>
+                                                                                    {% elsif product.tags contains 'bn-pre-sale' and product.tags contains 'bn-pre-shipping-7-days' %}
+                                                                                        <p class="weeks-4-6" style="display: none;">SHIPPING IN 7 days</p>
+                                                                                    {% elsif product.tags contains 'bn-pre-sale' and product.tags contains 'bn-pre-shipping-4-6' %}
+                                                                                        <p class="weeks-4-6" style="display: none;">SHIPPING IN 4-6 weeks</p>
+                                                                                    {% endif %}
+                                                                                    <div class="buy-now-preOrder-btns">
+                                                                                        <button type="button" class="only-btn-by-shop  btn buy-now-btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}" name="add">Buy Now</button>
+                                                                                        <button style="display: none;" val="pre-order" type="button" data-toggle="modal" data-target=".bd-example-modal-lg" class="only-btn-by-shop btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}" name="add">Pre Order</button>
+                                                                                        <button type="button" data-toggle="modal" data-target=".bd-example-modal-lg" class="only-btn-by-shop btn preOrder-btn">Pre Order</button>
+                                                                                    </div>
+                                                                                {% else %}
+                                                                                    <button id="AddToCart-{{ section.id }}" type="button" name="add" class="btn btn--add-to-cart{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}" disabled="true">
+                                                                                        <span class="btn__text">{{ 'products.product.add_to_cart' | t }}</span>
+                                                                                    </button>
+                                                                                {% endif %}
+                                                                            {% endif %}
+                                                                        {% else %}
+                                                                            <button type="button" class="btn btn--add-to-cart btn--disabled{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}" disabled="disabled">
+                                                                                {{ 'products.product.sold_out' | t }}
+                                                                            </button>
+                                                                        {% endif %}
+                                                                        {% if section.settings.enable_payment_button %}
+                                                                            <!--                     {{ form | payment_button }} -->
+                                                                        {% endif %}
+                                                                        <div class="modal popup_collection fade">
+                                                                            <div class="popup-col-content">
+                                                                                <div class="popup-dialog">
+                                                                                    <button type="button" class="close-popup-col">x</button>
+                                                                                    <a href="/collections/best-black-series">
+                                                                                        <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0854/5504/files/BEST_BLACK_TIGHT_S-min_compressed.png?v=1593095890" alt="best black tights image"></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endform %}
+                                                                        {% if section.settings.show_quantity_selector %}
+                                                                            <div class="product__quantity quantity-wrapper">
+                                                                                <label for="Quantity" class="product__quantity-label">{{ 'products.product.quantity' | t }}</label>
+                                                                                <input type="number" id="Quantity" class="quantity-input" name="quantity" value="1" min="1"></div>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <div id="all_description">
+                                                                            <div class="desc-items">
+                                                                                <ul class="desc-all-headers">
+                                                                                    <li class="desc-item g-active" data-id="desc-body">
+                                                                                        <h3>DESCRIPTION</h3>
+                                                                                        <div id="desc-body" class="desc-all-body desc-active">
+                                                                                            <div class="product-single__description rte" itemprop="description">
+                                                                                                <h2>{{ product.title }}</h2>
+                                                                                                {{ product.description }}
+                                                                                                {% comment %} {% if product.metafields.videos.video_1_content  != blank %}
+                                                                                                    <div class="video_and_vip">
+                                                                                                        <div>
+                                                                                                            <video id="stax-video" src="{{ product.metafields.videos.video_1_content }}" controls playsinline style="display: inline-block;" width='50%'></video>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                {% endif %} {% endcomment %}
+                                                                                                <!-- Autoinstall code -->
+                                                                                                <div data-app="eastsideco_sizeGuides" data-shop="{{ shop.permanent_domain }}" data-tags="{{ product.tags | join:',' | escape }}" data-metafields="{{ product.metafields.esc-size-matters.tag }}" data-popup="button"></div>
+                                                                                                <!-- / Autoinstall code -->
+                                                                                                <div id="bn-size-chart-place"></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                    <li class="desc-item" data-id="ship-body">
+                                                                                        <h3>SHIPPING</h3>
+                                                                                        <div id="ship-body" class="desc-all-body">
+                                                                                            <iframe src="https://stax.com.au/pages/bn_shipping" height="200" width="100%" title="" frameBorder="0"></iframe>
+                                                                                            {% comment %} <a class="btn btn-primary button" href="https://stax.com.au/pages/shipping">More Details</a> {% endcomment %}
+                                                                                        </div>
+                                                                                    </li>
+                                                                                    <li class="desc-item" data-id="ret-body">
+                                                                                        <h3>RETURNS</h3>
+                                                                                        <div id="ret-body" class="desc-all-body">
+                                                                                                                     <iframe src="https://stax.com.au/pages/returns" height="200" width="100%" title="" frameBorder="0"></iframe>
+                                                                                            
+                                                                                            {% comment %} <a class="btn btn-primary button" href="https://stax.com.au/pages/return-policy">More Details</a> {% endcomment %}
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <noscript>
+                                                                        <img class="product__photo--variant" src="{{ first_image | img_url: '2048x2048' }}" alt="{{ image.alt | escape }}"></noscript>
+                                                                        <div class="grid__item medium-up--five-twelfths product-col">
+                                                                            <div class="sticky-wrapper sticky">
+                                                                               {% comment %} {% if product.metafields.videos.video_1_content  != blank %}
+                                                                                    <div class="video_and_vip">
+                                                                                        <div style="width:49%">
+                                                                                            <video id="stax-video" src="{{ product.metafields.videos.video_1_content }}" controls playsinline style="display: inline-block;" width='100%'></video>
+                                                                                        </div>
+                                                                                        <div class="vip-list-prod" style="width:49%">
+                                                                                            <div class="vip_list_main">
+                                                                                                <h3>VIP SIGN UP EXCLUSIVE DISCOUNTS, EARLY RELEASES & RESTOCKS</h3>
+                                                                                                <div class="vip_form_content klaviyo-form-PGsuNd"></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                {% else %} 
+                                                                                    { <div class="vip-list-prod">
+                                                                                        <div class="vip_list_main">
+                                                                                            <h3>VIP SIGN UP EXCLUSIVE DISCOUNTS, EARLY RELEASES & RESTOCKS</h3>
+                                                                                            <div class="vip_form_content klaviyo-form-PGsuNd"></div>
+                                                                                        </div>
+                                                                                    </div> 
+                                                                                 {% endif %}  {% endcomment %}
+                                                                                {% include 'da-restock' %}
+                                                                                <div class="product-single__errors"></div>
+                                                                                <div id='upselly_widget_holder'></div>
+                                                                                <div class="social-sharin-tex-align">
+                                                                                    {% if section.settings.social_sharing_products %}
+                                                                                        {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        {% include 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true %}
+                                                                        <!-- <div class="recomended-all">
+                                                                                  <h2>Recomended for you</h2>
+                                                                        <div id="recomendedSection">
+                                                                        </div>
+                                                                        </div> -->
+                                                                    </div>
+                                                                    {% comment %}
+                                                                        Counting images shown on the page
+                                                                    {% endcomment %}
+                                                                    {% assign index = 1 %}
+                                                                    {% comment %}
+                                                                        If we have portrait images, we show two per row, so let's get a second image.
+                                                                                That image will be moved down below the description on mobile, hence why we'll use
+                                                                                `small--hide`. The image moved down is stored in the variable `duplicate_image`.
+                                                                    {% endcomment %}
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                        {% comment %}
+                                                            Show second product photo after description on mobile if
+                                                                image setting style is 'portrait'
+                                                        {% endcomment %}
+                                                    </div>
+                                                    <!--   
+                                                    {% comment %}Start automatically added Judge.me widget{% endcomment %}
+                                                      {% include 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true %}
+                                                    {% comment %}End automatically added Judge.me widget{% endcomment %}
+                                                    <div class="back-button grid">
+                                                    <div class="grid__item"></div>
+                                                    <a href="{{ back_url }}" class="btn back-button__link">
+                                                    <span class="icon icon-arrow-left" aria-hidden="true"></span>
+                                                    <span>{{ back_text }}</span>
+                                                    </a>
+                                                    </div> -->
+<!--                                                     <p class='snap-widget-custom-margin'> -->
+                                                        <!-- SnapWidget -->
+<!--                                                         <script async src="https://snapwidget.com/js/snapwidget.js"></script>
+                                                        <iframe scrolling="yes" src="https://snapwidget.com/embed/479783" class="snapwidget-widget" allowtransparency="true" frameborder="0" scrolling="no" style="border: none; overflow: hidden; width: 100%;"></iframe>
+                                                    </p> -->
+                                                </div>
+                                                <!-- </div> -->
+                                                {% unless product == empty %}
+                                                    <script defer type="application/json" id="ProductJson-{{ section.id }}">
+                                                        {{ product | json }}
+                                                    </script>
+                                                {% endunless %}
+                                                <script async src='https://widget.sezzle.com/v1/javascript/price-widget/initial?uuid=555896a9-e09c-4461-9b34-7c7300d74184'></script>
+                                                {% schema %}
+                                                {
+                                                "name": "Product",
+                                                "settings": [
+                                                {
+                                                "type": "checkbox",
+                                                "id": "skip_first_product_image",
+                                                "label": "Skip first product image",
+                                                "info" : "Make the first image for each product only appear on the collections page of your store. [Learn more](https://docs.shopify.com/manual/more/official-shopify-themes/boundless#skip-first-product-image-option)."
+                                                },
+                                                {
+                                                "type": "select",
+                                                "id": "product_image_type",
+                                                "label": "Image style",
+                                                "options": [
+                                                {
+                                                "value": "portrait",
+                                                "label": "Tall/square"
+                                                },
+                                                {
+                                                "value": "landscape",
+                                                "label": "Wide"
+                                                }
+                                                ]
+                                                },
+                                                {
+                                                "type": "checkbox",
+                                                "id": "show_vendor",
+                                                "label": "Show vendor",
+                                                "default": false
+                                                },
+                                                {
+                                                "type": "checkbox",
+                                                "id": "show_quantity_selector",
+                                                "label": "Show quantity selector",
+                                                "default": false
+                                                },
+                                                {
+                                                "type": "checkbox",
+                                                "id": "social_sharing_products",
+                                                "label": "Enable product sharing",
+                                                "default": true
+                                                },
+                                                {
+                                                "type": "checkbox",
+                                                "id": "enable_payment_button",
+                                                "label": "Show dynamic checkout button",
+                                                "info": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+                                                "default": false
+                                                },
+                                                {
+                                                "type": "select",
+                                                "id": "product_form_width",
+                                                "label": "Product form width",
+                                                "default": "small",
+                                                "options": [
+                                                {
+                                                "value": "small",
+                                                "label": "Small"
+                                                },
+                                                {
+                                                "value": "large",
+                                                "label": "Large"
+                                                }
+                                                ]
+                                                },
+                                                {
+                                                            "type": "image_picker",
+                                                            "id": "gif",
+                                                            "label": "Gif"
+                                                          }
+                                                ]
+                                                }
+                                                {% endschema %}

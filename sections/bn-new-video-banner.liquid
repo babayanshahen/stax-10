@@ -1,0 +1,104 @@
+<div class="video-youtube" data-section-id="{{ section.id }}" data-section-type="featured-video-section-type-2">
+
+  
+
+  {% if section.settings.video_url == blank %}
+
+    <iframe src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+
+  {% else %}
+  <a class="bn-custom-video-banner-container-link" href="{{ section.settings.video_type_2_link }}">
+    <div class="bn-custom-video-banner-container">
+            <video muted="" playsinline="" autoplay="" loop="" preload="auto" style="width:100%" >
+                  <source src="{{section.settings.video_url}}" type="video/mp4">
+                    Your browser does not support HTML video.
+
+            </video>
+            {% if section.settings.heading != blank %}
+                <div class="bn-custom-video-content">
+                    <h2 class="bn-custom-video-heading">{{ section.settings.heading | escape }}</h2>
+                    <p class="bn-custom-video-subheading">{{ section.settings.subheading | escape }}</p>
+                </div>
+            {% endif %}
+  
+        </div>
+  </a>
+   <a class="bn-custom-mobile-video-container-link hidde_video" href="{{ section.settings.mobile_video_link }}">
+    <div class="bn-custom-mobile-video-container ">
+            <video muted="" playsinline="" autoplay="" loop="" preload="auto" style="width:100%" >
+                  <source src="{{section.settings.mobile_video_url}}" type="video/mp4">
+                    Your browser does not support HTML video.
+
+            </video>
+            {% if section.settings.heading != blank %}
+                <div class="bn-custom-mobile-video-content">
+                    <h2 class="bn-custom-mobile-video-heading">{{ section.settings.mobile_heading | escape }}</h2>
+                    <p class="bn-custom-mobile-video-subheading">{{ section.settings.mobile_subheading | escape }}</p>
+                </div>
+            {% endif %}
+  
+        </div>
+  </a>
+
+  {% endif %}
+
+</div>
+
+{% schema %}
+  {
+    "name": "BN New Video Banner",
+    "class": "index-section featured-video-section-type-2",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading video",
+        "default": "Video"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading video",
+        "default": "Text"
+      },
+      {
+        "id": "video_type_2_link",
+        "type": "url",
+        "label": "Link"
+      },
+      {
+        "type": "url",
+        "id": "video_url",
+        "label": "Video link "
+      },
+       {
+        "type": "text",
+        "id": "mobile_heading",
+        "label": "Mobile Heading video",
+        "default": "Mobile Video"
+      },
+      {
+        "type": "text",
+        "id": "mobile_subheading",
+        "label": "Mobile Subheading video",
+        "default": "Mobile Text"
+      },
+      {
+        "id": "mobile_video_link",
+        "type": "url",
+        "label": "Mobile Link"
+      },
+      {
+        "type": "url",
+        "id": "mobile_video_url",
+        "label": "Mobile Video link "
+      }
+    ],
+    "presets": [
+      {
+        "name": "BN New Video Banner",
+        "category": "Video"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,211 @@
+<div class="bn-bottom-images" {% if section.settings.enable_background_color == true %}style="background-color:{{ section.settings.banner_background_color}}" {% endif %}>
+  {% if section.settings.backgroundImage03 != blank %}
+   <a  class="width_25 bn_baner_a skims_a_bn">
+    <div class="bn-bottom-left-item-image" style="background-image:url({{ section.settings.backgroundImage03 | img_url: '800x'}})">
+        <h3 class="bn-images-banner-title skims_text_bn" style="{% if section.settings.backgroundImage03_alignment == true %} right:20px;left:auto;  {% endif %}color:{{ section.settings.image_subheading_03_color}}">{{ section.settings.image_subheading_03}}</h3>
+          {% if section.settings.image_03_button_text != blank %}
+            <button class="bn_button_buy_now skims_button_bn" onclick="location.href='{{ section.settings.url03}}'" style="{% if section.settings.backgroundImage03_alignment == true %} right:20px;left:auto;  {% endif %}color:{{ section.settings.image_03_button_text_color}};background-color:{{ section.settings.image_03_button_background_color}}">
+              {{ section.settings.image_03_button_text}}
+            </button>
+          {% endif %}
+    </div>
+  </a>
+  {% endif %}
+  {% if section.settings.backgroundImage04 != blank %}
+   <a   class="width_25 bn_baner_a skims_a_bn">
+    <div class="bn-bottom-center-item-image" style="background-image:url({{ section.settings.backgroundImage04 | img_url: '800x'}})">
+        <h3 class="bn-images-banner-title skims_text_bn" style="{% if section.settings.backgroundImage04_alignment == true %} right:20px;left:auto;  {% endif %}color:{{ section.settings.image_subheading_04_color}}">{{ section.settings.image_subheading_04}}</h3>
+        {% if section.settings.image_04_button_text != blank %}
+          <button class="bn_button_buy_now skims_button_bn" onclick="location.href='{{ section.settings.url04}}'" style="{% if section.settings.backgroundImage04_alignment == true %} right:20px;left:auto;  {% endif %}color:{{ section.settings.image_04_button_text_color}};background-color:{{ section.settings.image_04_button_background_color}}">
+           {{ section.settings.image_04_button_text}}
+          </button>
+        {% endif %}
+    </div>
+  </a>
+  {% endif %}
+  {% if section.settings.backgroundImage05 != blank %}
+   <a  class="width_25 bn_baner_a skims_a_bn">
+    <div class="bn-bottom-right-item-image" style="background-image:url({{ section.settings.backgroundImage05 | img_url: '800x'}})">
+        <h3 class="bn-images-banner-title skims_text_bn" style="{% if section.settings.backgroundImage05_alignment == true %} right:20px;left:auto;  {% endif %}color:{{ section.settings.image_subheading_05_color}}">{{ section.settings.image_subheading_05}}</h3>
+        {% if section.settings.image_05_button_text != blank %}
+          <button class="bn_button_buy_now  skims_button_bn" onclick="location.href='{{ section.settings.url05}}'" style="{% if section.settings.backgroundImage05_alignment == true %} right:20px;left:auto;  {% endif %}color:{{ section.settings.image_05_button_text_color}};background-color:{{ section.settings.image_05_button_background_color}}">
+            {{ section.settings.image_05_button_text}}
+          </button>
+        {% endif %}
+    </div>
+  </a>
+  {% endif %}
+</div>
+{% if section.settings.all_text != blank %}
+<div class="bn-new-black-friday-text">
+{{ section.settings.all_text}}
+</div>
+{% endif %}
+{% schema %}
+  {
+  "name": "BN BF Banner Skims",
+  "class": "index-section featured-video-section-type-2",
+    "settings": [
+    {
+      "type":      "checkbox",
+      "id":        "enable_background_color",
+      "label":     "Enble Background Color",
+      "default":   false
+      
+   },
+   {
+    "type": "color",
+    "id": "banner_background_color",
+    "label": "Background color",
+    "default": "#ffffff"
+ },
+      {
+      "type": "url",
+      "id": "url03",
+      "label": "Link"
+      },
+      {
+      "type": "image_picker",
+      "id": "backgroundImage03",
+      "label": "Background image "
+      },
+      {
+      "type": "text",
+      "id": "image_subheading_03",
+      "label": "Text",
+      "default": "Text03"
+      },
+      {
+      "type": "color",
+      "id": "image_subheading_03_color",
+      "label": "Text Color",
+      "default": "#3D4246"
+      },
+      {
+      "type": "text",
+      "id": "image_03_button_text",
+      "label": "Text",
+      "default": "Shop Now"
+      },
+      {
+      "type": "color",
+      "id": "image_03_button_text_color",
+      "label": "Button Text Color",
+      "default": "#3D4246"
+      },
+      {
+      "type": "color",
+      "id": "image_03_button_background_color",
+      "label": "Button Background Color",
+      "default": "#3D4246"
+      },
+      {
+      "type": "checkbox",
+      "id": "backgroundImage03_alignment",
+      "label": "Right alignment"
+      },
+      {
+      "type": "url",
+      "id": "url04",
+      "label": "Link"
+      },
+      {
+      "type": "image_picker",
+      "id": "backgroundImage04",
+      "label": "Background image "
+      },
+      {
+      "type": "text",
+      "id": "image_subheading_04",
+      "label": "Text",
+      "default": "Text04"
+      },
+      {
+      "type": "color",
+      "id": "image_subheading_04_color",
+      "label": "Text Color",
+      "default": "#3D4246"
+      },
+      {
+      "type": "text",
+      "id": "image_04_button_text",
+      "label": "Text",
+      "default": "Shop Now"
+      },
+      {
+      "type": "color",
+      "id": "image_04_button_text_color",
+      "label": "Button Text Color",
+      "default": "#3D4246"
+      },
+      {
+      "type": "color",
+      "id": "image_04_button_background_color",
+      "label": "Button Background Color",
+      "default": "#3D4246"
+      },
+      {
+      "type": "checkbox",
+      "id": "backgroundImage04_alignment",
+      "label": "Right alignment"
+      },
+      {
+      "type": "url",
+      "id": "url05",
+      "label": "Link"
+      },
+      {
+      "type": "image_picker",
+      "id": "backgroundImage05",
+      "label": "Background image "
+      },
+      {
+      "type": "text",
+      "id": "image_subheading_05",
+      "label": "Text",
+      "default": "Text05"
+      },
+      {
+      "type": "color",
+      "id": "image_subheading_05_color",
+      "label": "Text Color",
+      "default": "#3D4246"
+      },
+      {
+      "type": "text",
+      "id": "image_05_button_text",
+      "label": "Text",
+      "default": "Shop Now"
+      },
+      {
+      "type": "color",
+      "id": "image_05_button_text_color",
+      "label": "Button Text Color",
+      "default": "#3D4246"
+      },
+      {
+      "type": "color",
+      "id": "image_05_button_background_color",
+      "label": "Button Background Color",
+      "default": "#3D4246"
+      },
+      {
+      "type": "checkbox",
+      "id": "backgroundImage05_alignment",
+      "label": "Right alignment"
+      },
+
+      {
+      "type": "text",
+      "id": "all_text",
+      "label": "Text"
+      }
+      ],
+      "presets": [
+      {
+      "name": "BN BF Banner Skims",
+      "category": "Images"
+      }
+    ]
+  }
+{% endschema %}

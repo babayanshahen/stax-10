@@ -1,0 +1,282 @@
+<div class="drawer__inner">
+  <button type="button" class="drawer__close-button js-drawer-close bn-custom-icon-x">
+      <span class="icon icon-x" aria-hidden="true"></span>
+      <span class="icon__fallback-text">{{ 'layout.drawers.close_menu' | t }}</span>
+    </button>
+  <ul class="drawer-nav">
+    {% for link in linklists[section.settings.sidebar_top_link_list].links %}
+      {% assign outerLoopIndex = forloop.index %}
+      {% if link.links != blank %}
+        {% assign has_active_link = false %}
+        {% if link.active or link.child_active %}
+          {% assign has_active_link = true %}
+        {% endif %}
+        <li class="drawer-nav__item{% unless template.name == 'index' %}{% if link.active %} drawer-nav__item--active{% endif %}{% endunless %}" aria-haspopup="true">
+          <div class="drawer-nav__has-sublist{% if has_active_link %} drawer-nav--expanded{% endif %}">
+            <a href="{{ link.url }}" class="drawer-nav__link h2"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+            <div class="drawer-nav__toggle">
+              <button type="button" class="drawer-nav__toggle-button" aria-expanded="{{ has_active_link }}" aria-label="{{ link.title }} {{ 'layout.navigation.menu' | t }}" aria-controls="Submenu-{{ outerLoopIndex }}">
+                <span class="icon {% if has_active_link %}icon-minus{% else %}icon-plus{% endif %}" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+          <ul class="drawer-nav__sublist" id="Submenu-{{ outerLoopIndex }}">
+            {% for childlink in link.links %}
+              {% if childlink.links != blank %}
+                {% assign has_active_childlink = false %}
+                {% if childlink.active or childlink.child_active %}
+                  {% assign has_active_childlink = true %}
+                {% endif %}
+                <li class="drawer-nav__item{% unless template.name == 'index' %}{% if childlink.active %} drawer-nav__item--active{% endif %}{% endunless %}" aria-haspopup="true">
+                  <div class="drawer-nav__has-sublist{% if has_active_childlink %} drawer-nav--expanded{% endif %}">
+                    <a href="{{ childlink.url }}" class="drawer-nav__link"{% if childlink.active %} aria-current="page"{% endif %}>{{ childlink.title }}</a>
+                    <div class="drawer-nav__toggle">
+                      <button type="button" class="drawer-nav__toggle-button" aria-expanded="{{ has_active_childlink }}" aria-label="{{ childlink.title }} {{ 'layout.navigation.menu' | t }}" aria-controls="Submenu-{{ outerLoopIndex }}-{{ forloop.index }}">
+                        <span class="icon {% if has_active_childlink %}icon-minus{% else %}icon-plus{% endif %}" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </div>
+                  <ul class="drawer-nav__sublist drawer-nav__sublist--inner" id="Submenu-{{ outerLoopIndex }}-{{ forloop.index }}">
+                    {% for grandchildlink in childlink.links %}
+                      <li class="drawer-nav__item drawer-nav__grandchild{% unless template.name == 'index' %}{% if grandchildlink.active %} drawer-nav__item--active{% endif %}{% endunless %}">
+                        <a href="{{ grandchildlink.url }}" class="drawer-nav__link"{% if grandchildlink.active %} aria-current="page"{% endif %}>{{ grandchildlink.title | escape }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% else %}
+                <li class="drawer-nav__item{% unless template.name == 'index' %}{% if childlink.active %} drawer-nav__item--active{% endif %}{% endunless %}">
+                  <a href="{{ childlink.url }}" class="drawer-nav__link"{% if childlink.active %} aria-current="page"{% endif %}>{{ childlink.title | escape }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+      {% else %}
+        <li class="drawer-nav__item{% unless template.name == 'index' %}{% if link.active %} drawer-nav__item--active{% endif %}{% endunless %}">
+      {% if   link.title == '<img src="https://cdn.shopify.com/s/files/1/0854/5504/files/ally.png?11535493275240496608" style="vertical-align: middle;height: 38px;">'  %}
+			<a href="{{ link.url }}" class="drawer-nav__link h2"{% if link.active %} aria-current="page"{% endif %}><img src="https://cdn.shopify.com/s/files/1/0854/5504/files/download.png?17846854377954852036" style="vertical-align: middle;height: 38px;"></a>
+		{% else %}
+          	<a href="{{ link.url }}" class="drawer-nav__link h2"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+         {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+    <ul class="list--inline social-icons social-icons--drawer bn_social_icons">
+    {% if settings.social_twitter_link != blank %}
+      <li>
+        <a href="{{ settings.social_twitter_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Twitter' }}">
+          <span class="icon icon-twitter" aria-hidden="true"></span>
+          <span class="visually-hidden">Twitter</span>
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.social_facebook_link != blank %}
+      <li>
+        <a href="{{ settings.social_facebook_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Facebook' }}">
+          <span class="icon icon-facebook" aria-hidden="true"></span>
+          <span class="visually-hidden">Facebook</span>
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.social_pinterest_link != blank %}
+      <li>
+        <a href="{{ settings.social_pinterest_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Pinterest' }}">
+          <span class="icon icon-pinterest" aria-hidden="true"></span>
+          <span class="visually-hidden">Pinterest</span>
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.social_google_plus_link != blank %}
+      <li>
+        <a href="{{ settings.social_google_plus_link | escape }}" rel="publisher" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Google Plus' }}">
+          <span class="icon icon-google_plus" aria-hidden="true"></span>
+          <span class="visually-hidden">Google Plus</span>
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.social_instagram_link != blank %}
+      <li>
+        <a href="{{ settings.social_instagram_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Instagram' }}">
+          <span class="icon icon-instagram" aria-hidden="true"></span>
+          <span class="visually-hidden">Instagram</span>
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.social_snapchat_link != blank %}
+      <li>
+        <a href="{{ settings.social_snapchat_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Snapchat' }}">
+          <span class="icon icon-snapchat" aria-hidden="true"></span>
+          <span class="visually-hidden">Snapchat</span>
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.social_tumblr_link != blank %}
+      <li>
+        <a href="{{ settings.social_tumblr_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Tumblr' }}">
+          <span class="icon icon-tumblr" aria-hidden="true"></span>
+          <span class="visually-hidden">Tumblr</span>
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.social_youtube_link != blank %}
+      <li>
+        <a href="{{ settings.social_youtube_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'YouTube' }}">
+          <span class="icon icon-youtube" aria-hidden="true"></span>
+          <span class="visually-hidden">YouTube</span>
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.social_vimeo_link != blank %}
+      <li>
+        <a href="{{ settings.social_vimeo_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Vimeo' }}">
+          <span class="icon icon-vimeo" aria-hidden="true"></span>
+          <span class="visually-hidden">Vimeo</span>
+        </a>
+      </li>
+    {% endif %}
+    {% if settings.social_fancy_link != blank %}
+      <li>
+        <a href="{{ settings.social_fancy_link | escape }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: 'Fancy' }}">
+          <span class="icon icon-fancy" aria-hidden="true"></span>
+          <span class="visually-hidden">Fancy</span>
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+    <li class="drawer-nav__spacer"></li>
+    <div class="sidebar-bottom-btns">
+      <button type="button" class="login-sign-btns btn log-in-btn">
+         <a href="/account/login">Log In</a>
+      </button>
+      <button type="button" class="login-sign-btns btn sign-up-btn">
+        <a href="/account/register">Sign Up</a>
+      </button>
+    </div>
+    <div class="ownInfo">
+        <div class="bn_profile_content_mobile bn_m_m" onclick="location.href = '/account'">
+           <button type="button" onclick="mobileMenuOpen()" class="login-sign-btns btn log-in-btn bn_l_b">
+             <i class="bn_fa_user_circle far fa-user-circle"></i>
+           </button>
+           <p> My profile </p>
+        </div>
+        <div class="bn_orders_content_mobile bn_m_m" onclick="location.href = '/account'">
+          <a href="" class="bn_header_right_icon_cart bn_l_b">
+            <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 0H1C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1V15C0 15.5304 0.210714 16.0391 0.585786 16.4142C0.960859 16.7893 1.46957 17 2 17H18C18.5304 17 19.0391 16.7893 19.4142 16.4142C19.7893 16.0391 20 15.5304 20 15V1C20 0.734784 19.8946 0.48043 19.7071 0.292893C19.5196 0.105357 19.2652 0 19 0ZM10 9C6.691 9 4 6.309 4 3H6C6 5.206 7.794 7 10 7C12.206 7 14 5.206 14 3H16C16 6.309 13.309 9 10 9Z" fill="black"></path>
+            </svg>
+          </a>
+          <p> My orders </p>
+        </div>
+        <div class="bn_returns_content_mobile bn_m_m" onclick="location.href = '/pages/returns-policy'">
+          <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="bn_l_b">
+            <path d="M17 1V5H3.83L7.41 1.41L6 0L0 6L6 12L7.41 10.59L3.83 7H19V1H17Z" fill="black"></path>
+            </svg>
+          <p>Returns</p>
+        </div>
+        <div class="header-right-icon all_view_currency bn_m_m bn_m_m_c">
+          <div class="clone_selected_currency">
+            <p class="bn_m_m_c_p">| <span>Change</span></p>
+          </div>
+            <ul class="clone_currency">
+            </ul>
+          </div>
+    </div>
+    <div class="sidebar_footer">
+    {% if shop.customer_accounts_enabled %}
+      {% if customer %}
+        <li class="drawer-nav__item drawer-nav__item--secondary">
+          <a href="/account">{{ 'layout.customer.account' | t }}</a>
+        </li>
+        <li class="drawer-nav__item drawer-nav__item--secondary">
+          {{ 'layout.customer.log_out' | t | customer_logout_link }}
+        </li>
+      {% else %}
+        <li class="drawer-nav__item drawer-nav__item--secondary">
+          {{ 'layout.customer.log_in' | t | customer_login_link }}
+        </li>
+        <li class="drawer-nav__item drawer-nav__item--secondary">
+          {{ 'layout.customer.create_account' | t | customer_register_link }}
+        </li>
+      {% endif %}
+    {% endif %}
+    {% for link in linklists[section.settings.sidebar_bottom_link_list].links %}
+      {% assign outerLoopIndex = forloop.index %}
+      {% if link.links != blank %}
+        {% assign has_active_link = false %}
+        {% if link.active or link.child_active %}
+          {% assign has_active_link = true %}
+        {% endif %}
+        <li class="drawer-nav__item{% unless template.name == 'index' %}{% if link.active %} drawer-nav__item--active{% endif %}{% endunless %}" aria-haspopup="true">
+          <div class="drawer-nav__has-sublist{% if has_active_link %} drawer-nav--expanded{% endif %}">
+            <a href="{{ link.url }}" class="drawer-nav__link h2"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+            <div class="drawer-nav__toggle">
+              <button type="button" class="drawer-nav__toggle-button" aria-expanded="{{ has_active_link }}" aria-label="{{ link.title }} {{ 'layout.navigation.menu' | t }}" aria-controls="Submenu-{{ outerLoopIndex }}">
+                <span class="icon {% if has_active_link %}icon-minus{% else %}icon-plus{% endif %}" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+          <ul class="drawer-nav__sublist" id="Submenu-{{ outerLoopIndex }}">
+            {% for childlink in link.links %}
+              {% if childlink.links != blank %}
+                {% assign has_active_childlink = false %}
+                {% if childlink.active or childlink.child_active %}
+                  {% assign has_active_childlink = true %}
+                {% endif %}
+                <li class="drawer-nav__item{% unless template.name == 'index' %}{% if childlink.active %} drawer-nav__item--active{% endif %}{% endunless %}" aria-haspopup="true">
+                  <div class="drawer-nav__has-sublist{% if has_active_childlink %} drawer-nav--expanded{% endif %}">
+                    <a href="{{ childlink.url }}" class="drawer-nav__link"{% if childlink.active %} aria-current="page"{% endif %}>{{ childlink.title }} </a>
+                    <div class="drawer-nav__toggle">
+                      <button type="button" class="drawer-nav__toggle-button" aria-expanded="{{ has_active_childlink }}" aria-label="{{ childlink.title }} {{ 'layout.navigation.menu' | t }}" aria-controls="Submenu-{{ outerLoopIndex }}-{{ forloop.index }}">
+                        <span class="icon {% if has_active_childlink %}icon-minus{% else %}icon-plus{% endif %}" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </div>
+                  <ul class="drawer-nav__sublist drawer-nav__sublist--inner" id="Submenu-{{ outerLoopIndex }}-{{ forloop.index }}">
+                    {% for grandchildlink in childlink.links %}
+                      <li class="drawer-nav__item drawer-nav__grandchild{% unless template.name == 'index' %}{% if grandchildlink.active %} drawer-nav__item--active{% endif %}{% endunless %}">
+                        <a href="{{ grandchildlink.url }}" class="drawer-nav__link"{% if grandchildlink.active %} aria-current="page"{% endif %}>{{ grandchildlink.title | escape }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% else %}
+                <li class="drawer-nav__item{% unless template.name == 'index' %}{% if childlink.active %} drawer-nav__item--active{% endif %}{% endunless %}">
+                  <a href="{{ childlink.url }}" class="drawer-nav__link"{% if childlink.active %} aria-current="page"{% endif %}>{{ childlink.title | escape }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+      {% else %}
+        <li class="drawer-nav__item{% unless template.name == 'index' %}{% if link.active %} drawer-nav__item--active{% endif %}{% endunless %}">
+      {% if   link.title == '<img src="https://cdn.shopify.com/s/files/1/0854/5504/files/ally.png?11535493275240496608" style="vertical-align: middle;height: 38px;">'  %}
+      <a href="{{ link.url }}" class="drawer-nav__link h2"{% if link.active %} aria-current="page"{% endif %}><img src="https://cdn.shopify.com/s/files/1/0854/5504/files/download.png?17846854377954852036" style="vertical-align: middle;height: 38px;"></a>
+    {% else %}
+            <a href="{{ link.url }}" class="drawer-nav__link h2"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+         {% endif %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Sidebar menu",
+    "class": "sidebar-menu-section",
+    "settings": [  {
+        "type": "link_list",
+        "id": "sidebar_top_link_list",
+        "label": "Primary menu",
+        "default": "main-menu"
+      },  {
+        "type": "link_list",
+        "id": "sidebar_bottom_link_list",
+        "label": "Additional menu",
+        "default": "footer",
+        "info": "This menu won't show dropdown items"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,134 @@
+<div class="bn-top-images">
+  {% if section.settings.backgroundImage01 != blank %}
+  <a href="{{ section.settings.url01}}" class="width_60">
+    <div class="bn-top-left-item-image " style="background-image:url({{ section.settings.backgroundImage01 | img_url: '800x'}})">
+      <div class="bn_bf_images_title_button_container" style="{% if section.settings.backgroundImage01_alignment == true %} right:40px;left:auto;  {% endif %}">
+        <h2 class="bn-images-title" style="color: {{ section.settings.text_color_01 }};">{{ section.settings.image_subheading_01}}</h2>
+        {% if section.settings.button_title !=blank %}
+       
+        <button class="bn_bf_shop_now_button btn" style="background-color: {{ section.settings.button_background_color }}; color: {{ section.settings.button_text_color }};"> {{ section.settings.button_title }} </button>
+        
+        {% endif %}
+      </div>
+    </div>
+  </a>
+  {% endif %}
+  {% if section.settings.backgroundImage02 != blank %}
+  <a href="{{ section.settings.url02}}" class="width_40">
+    <div class="bn-top-right-item-image " style="background-image:url({{ section.settings.backgroundImage02 | img_url: '800x'}})">
+      <div class="bn_bf_images_title_button_container" style="{% if section.settings.backgroundImage02_alignment == true %} right:40px;left:auto;  {% endif %}">
+        <h2 class="bn-images-title" style="color: {{ section.settings.text_color_02 }};">{{ section.settings.image_subheading_02}}</h2>
+        {% if section.settings.button_title_02 !=blank %}
+       
+        <button class="bn_bf_shop_now_button btn" style="background-color: {{ section.settings.button_background_color_02 }}; color: {{ section.settings.button_text_color_02 }};"> {{ section.settings.button_title_02 }} </button>
+      
+        {% endif %}
+      </div>
+    </div>
+  </a>
+  {% endif %}
+</div>
+{% schema %}
+{
+"name": "BN BF Images Skims",
+"class": "index-section featured-video-section-type-2",
+"settings": [
+        {
+        "type": "url",
+        "id": "url01",
+        "label": "Link"
+        },
+        {
+        "type": "image_picker",
+        "id": "backgroundImage01",
+        "label": "Background image "
+        },
+        {
+        "type": "text",
+        "id": "image_subheading_01",
+        "label": "Text",
+        "default": "Text01"
+        },
+        {
+        "type": "color",
+        "id": "text_color_01",
+        "label": "Text color",
+        "default": "#FFFFFF"
+        },
+        {
+        "type": "text",
+        "id": "button_title",
+        "default": "Shop now",
+        "label": "Button title"
+        },
+        {
+        "type": "color",
+        "id": "button_text_color",
+        "label": "Button Text color",
+        "default": "#FFFFFF"
+        },
+        {
+        "type": "color",
+        "id": "button_background_color",
+        "label": "Button Background color",
+        "default": "#000000"
+        },
+        {
+        "type": "checkbox",
+        "id": "backgroundImage01_alignment",
+        "label": "Right alignment"
+        },
+        {
+        "type": "url",
+        "id": "url02",
+        "label": "Link"
+        },
+        {
+        "type": "image_picker",
+        "id": "backgroundImage02",
+        "label": "Background image "
+        },
+        {
+        "type": "text",
+        "id": "image_subheading_02",
+        "label": "Text",
+        "default": "Text02"
+        },
+        {
+        "type": "color",
+        "id": "text_color_02",
+        "label": "Text color",
+        "default": "#FFFFFF"
+        },
+        {
+        "type": "text",
+        "id": "button_title_02",
+        "default": "Shop now",
+        "label": "Button title"
+        },
+        {
+        "type": "color",
+        "id": "button_text_color_02",
+        "label": "Button Text color",
+        "default": "#FFFFFF"
+        },
+        {
+        "type": "color",
+        "id": "button_background_color_02",
+        "label": "Button Background color",
+        "default": "#000000"
+        },
+        {
+        "type": "checkbox",
+        "id": "backgroundImage02_alignment",
+        "label": "Right alignment"
+        }
+  ],
+"presets": [
+    {
+    "name": "BN BF Images Skims",
+    "category": "Images"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1 @@
+"undefined"==typeof SCAPPinit&&(SCAPPinit={initial:!1}),"undefined"==typeof SCAPP&&(SCAPP={version:1,activated:0,created:1564333200}),SCAPP.popups={},SCAPP.filter={home:null,cart_empty:null,cart_nonempty:null,cart_specific:null,specific:null,all:null,open:null,leave:null};

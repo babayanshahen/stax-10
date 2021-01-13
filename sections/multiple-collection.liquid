@@ -1,0 +1,168 @@
+<div class="bn-section-2020 multiple-collection" data-section-id="{{ section.id }}" data-section-type="multiple-collection-section">
+  {% comment %}
+    By default, featured products come from your Frontpage collection.
+    This collection is empty by default and must have products added to it
+  {% endcomment %}
+  {% assign left_image = section.settings.left_image | img_url: '1024x1024' %}
+  {% assign left_url = section.settings.left_url %}
+  {% assign right_image_1 = section.settings.right_image_1 | img_url: '1024x1024' %}
+  {% assign right_image_2 = section.settings.right_image_2 | img_url: '1024x1024' %}
+  {% assign right_image_3 = section.settings.right_image_3 | img_url: '1024x1024' %}
+  {% assign right_image_4 = section.settings.right_image_4 | img_url: '1024x1024' %}
+  {% assign right_image_5 = section.settings.right_image_5 | img_url: '1024x1024' %}
+  {% assign right_image_6 = section.settings.right_image_6 | img_url: '1024x1024' %}
+  {% assign right_url_1 = section.settings.right_url_1 %}
+  {% assign right_url_2 = section.settings.right_url_2 %}
+  {% assign right_url_3 = section.settings.right_url_3 %}
+  {% assign right_url_4 = section.settings.right_url_4 %}
+  {% assign right_url_5 = section.settings.right_url_5 %}
+  {% assign right_url_6 = section.settings.right_url_6 %}
+  {% assign alt_image_left = left_url  | replace: "/", " " %}
+  {% assign alt_image_1 = right_url_1  | replace: "/", " " %}
+  {% assign alt_image_2 = right_url_2  | replace: "/", " " %}
+  {% assign alt_image_3 = right_url_3  | replace: "/", " " %}
+  {% assign alt_image_4 = right_url_4  | replace: "/", " " %}
+  {% assign alt_image_5 = right_url_5  | replace: "/", " " %}
+  {% assign alt_image_6 = right_url_6  | replace: "/", " " %}
+  
+  {% comment %}Heading for screen readers{% endcomment %}
+  <h2 class="bn-collection-header">{{ section.settings.multiple_collection_title }}</h2>
+<!--multiple collection container -->
+<div class="bn-container">
+<div class="multiple-collection-content">
+  <div class="multiple-collection-left">
+    
+    <a href="{{left_url}}">
+        <img class="lazyload" data-src="{{left_image}}" alt="{{alt_image_left }}" title="{{alt_image_left}}">
+      </a>
+  </div>
+  <div class="multiple-collection-right">
+  <div class="multiple-collection-carousel ">
+    <div class="multiple-item multiple-item-1">
+      <a href="{{right_url_1}}">
+        <img class="lazyload" data-src="{{right_image_1}}" alt="{{alt_image_1}}" title="{{alt_image_1}}">
+      </a>
+    </div>
+    <div class="multiple-item multiple-item-2">
+      <a href="{{right_url_2}}">
+        <img class="lazyload" data-src="{{right_image_2}}" alt="{{alt_image_2}}" title="{{alt_image_2}}">
+      </a>
+    </div>
+    <div class="multiple-item multiple-item-3">
+      <a href="{{right_url_3}}">
+        <img class="lazyload" data-src="{{right_image_3}}" alt="{{alt_image_3}}" title="{{alt_image_3}}">
+      </a>
+    </div>
+    <div class="multiple-item multiple-item-4">
+      <a href="{{right_url_4}}">
+        <img class="lazyload" data-src="{{right_image_4}}" alt="{{alt_image_4}}" title="{{alt_image_4}}">
+      </a>
+    </div>
+<!--     <div class="multiple-item multiple-item-5">
+      <a href="{{right_url_5}}">
+        <img src="{{right_image_5}}" alt="{{alt_image_5}}" title="{{alt_image_5}}">
+      </a>
+    </div>
+    <div class="multiple-item multiple-item-6">
+      <a href="{{right_url_6}}">
+        <img src="{{right_image_6}}" alt="{{alt_image_6}}" title="{{alt_image_6}}">
+      </a>
+    </div> -->
+  </div>
+</div>
+</div>
+</div>
+</div>
+{% schema %}
+  {
+    "name": "Multiple collection",
+    "class": "index-section multiple-collection-section",
+    "settings": [{
+        "type": "header",
+        "content": "Multiple Collection"
+      },
+      {
+        "type": "text",
+        "id": "multiple_collection_title",
+        "label": "Title"
+      },
+      {
+        "type": "header",
+        "content": "Image Left"
+      },
+      {
+        "type": "image_picker",
+        "id": "left_image",
+        "label": "Left Image (required)"
+      }, {
+      "type" : "url",
+      "id": "left_url",
+      "label": "Left URL"
+    },
+
+
+
+    {
+        "type": "header",
+        "content": "Images Right"
+      },
+      {
+        "type": "image_picker",
+        "id": "right_image_1",
+        "label": "Image 1 (required)"
+      }, {
+      "type" : "url",
+      "id": "right_url_1",
+      "label": "URL 1 (required)"
+    },
+    {
+        "type": "image_picker",
+        "id": "right_image_2",
+        "label": "Image 2 (required)"
+      }, {
+      "type" : "url",
+      "id": "right_url_2",
+      "label": "URL 2 (required)"
+    },
+    {
+        "type": "image_picker",
+        "id": "right_image_3",
+        "label": "Image 3 (optional)"
+      }, {
+      "type" : "url",
+      "id": "right_url_3",
+      "label": "URL 3 (optional)"
+    },
+    {
+        "type": "image_picker",
+        "id": "right_image_4",
+        "label": "Image 4 (optional)"
+      }, {
+      "type" : "url",
+      "id": "right_url_4",
+      "label": "URL 4 (optional)"
+    },
+    {
+        "type": "image_picker",
+        "id": "right_image_5",
+        "label": "Image 5 (optional)"
+      }, {
+      "type" : "url",
+      "id": "right_url_5",
+      "label": "URL 5 (optional)"
+    },
+    {
+        "type": "image_picker",
+        "id": "right_image_6",
+        "label": "Image 6 (optional)"
+      }, {
+      "type" : "url",
+      "id": "right_url_6",
+      "label": "URL 6 (optional)"
+    }],
+    "presets": [{
+      "name": "Multiple Collection",
+      "category": "Collection"
+    }]
+  }
+{% endschema %}

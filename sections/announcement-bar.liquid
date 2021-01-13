@@ -1,0 +1,144 @@
+ {% if section.settings.link == blank %}
+ <div class="bn-container">
+      <div class="announcement-bar">
+    {% else %}
+      <a href="{{ section.settings.link }}" class="announcement-bar announcement-bar--link">
+    {% endif %}
+        	<div id="logotype" onclick="window.location = 'https://stax.com.au';">
+           <img  class="brand" alt="Stax." title="Stax." src="https://cdn.shopify.com/s/files/1/0854/5504/files/rsz_stax_logo_black-new.png?v=1584437170" width="155" height="46"> 
+          </div>
+
+      <p class="announcement-bar__message">
+<!--         <span class="icon icon-cart custom-gi" aria-hidden="true" ></span> -->
+        {{ section.settings.text | escape }}
+      </p>
+      <div class="search-bug-currency">
+        <a href="/search" class="header-right-icon site-header__link site-header__search js-drawer-open-top">
+          <span class="icon icon-search" aria-hidden="true"></span>
+          <span class="icon__fallback-text">{{ 'layout.navigation.search' | t }}</span>
+        </a>
+        <button type="button" onclick="mobileMenuOpen()" class="login-sign-btns btn log-in-btn bn_login_btn">
+          <i class="bn_fa_user_circle far fa-user-circle"></i>
+          
+       
+        </button>
+        <div class="simplemenu bn_simplemenu" id="gmDropdown">
+          <div class="login_signup_dropdown_header">
+            <ul  class="dropdown-content">
+              <li>   <a href="/account/login" class="account_prevent_lofin_signup">Log In</a></li>
+              <li> <a href="/account/register" class="account_prevent_lofin_signup">Sign Up</a></li>
+            </ul>
+            <i class="bn_fa_window_close fas fa-window-close"></i>
+            <!-- <i class="fas fa-times"></i> -->
+          </div>
+          <div class="login_signup_dropdown_body">
+            <div class="bn_profile_content" onclick="location.href = '/account'" >
+                <button type="button" onclick="mobileMenuOpen()" class="login-sign-btns btn log-in-btn bn_login_btn">
+                  <i class="bn_fa_user_circle far fa-user-circle"></i>
+                </button>
+                <p> My profile </p>
+            </div>
+            <div class="bn_orders_content" onclick="location.href = '/account'">
+                <a href="" class="bn_header_right_icon_cart">
+                    <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M19 0H1C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1V15C0 15.5304 0.210714 16.0391 0.585786 16.4142C0.960859 16.7893 1.46957 17 2 17H18C18.5304 17 19.0391 16.7893 19.4142 16.4142C19.7893 16.0391 20 15.5304 20 15V1C20 0.734784 19.8946 0.48043 19.7071 0.292893C19.5196 0.105357 19.2652 0 19 0ZM10 9C6.691 9 4 6.309 4 3H6C6 5.206 7.794 7 10 7C12.206 7 14 5.206 14 3H16C16 6.309 13.309 9 10 9Z" fill="black"/>
+                      </svg>
+                </a>
+                <p> My orders </p>
+            </div>
+            <div class="bn_returns_content" onclick="location.href = '/pages/returns-policy'">
+              <svg width="19" height="12" viewBox="0 0 19 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 1V5H3.83L7.41 1.41L6 0L0 6L6 12L7.41 10.59L3.83 7H19V1H17Z" fill="black"/>
+                </svg>
+                
+              <p>Returns</p>
+            </div>
+          </div>
+
+        </div>
+        
+        <!-- <button type="button" class="login-sign-btns btn sign-up-btn">
+          <a href="/account/register">Sign Up</a>
+        </button> -->
+        <a href="#swym-wishlist" class="swym-wishlist bn_swym_wishlist">
+          <i aria-hidden="true" focusable="false" role="presentation" class="fa fa-heart"></i>
+        </a>
+       
+        
+        <a href="/cart" class="bn_header_right_icon_cart bn_header_cart_drawer header-right-icon site-header__link site-header__cart cart-link{% if settings.cart_type == 'drawer' %} js-drawer-open-right{% endif %}{% if cart.item_count > 0 %} cart-bubble--visible{% endif %}">
+          <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 0H1C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1V15C0 15.5304 0.210714 16.0391 0.585786 16.4142C0.960859 16.7893 1.46957 17 2 17H18C18.5304 17 19.0391 16.7893 19.4142 16.4142C19.7893 16.0391 20 15.5304 20 15V1C20 0.734784 19.8946 0.48043 19.7071 0.292893C19.5196 0.105357 19.2652 0 19 0ZM10 9C6.691 9 4 6.309 4 3H6C6 5.206 7.794 7 10 7C12.206 7 14 5.206 14 3H16C16 6.309 13.309 9 10 9Z" fill="black"/>
+            </svg>
+            
+          <!-- <span class="icon icon-cart" aria-hidden="true"></span> -->
+          <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+        </a>
+        <div class="header-right-icon all_view_currency">
+  <div class="clone_selected_currency"></div>
+<ul class="clone_currency">
+  
+</ul>
+</div>
+        {% form 'currency' %}
+  <select name="currency">
+    {% for currency in shop.enabled_currencies %}
+      {% if currency == cart.currency %}
+        <option selected="true" class="custom-currency-flag-selected">{{currency.iso_code}} {{currency.symbol}} </option>
+        {% else %}
+        <option class="custom-currency-flag">{{currency.iso_code}}</option>
+      {% endif %}
+    {% endfor %}
+  </select>
+{% endform %}
+
+      </div>
+<!-- 		 <span class="shop-now"> </span> -->
+    {% if section.settings.link == blank %}
+      </div>
+    </div>
+    {% else %}
+      </a>
+    {% endif %}
+
+{% schema %}
+  {
+    "name": "Announcement bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_announcement",
+        "label": "Show announcement",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "home_page_only",
+        "label": "Home page only",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "text",
+        "label": "Announcement text",
+        "default": "Announce something here"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Announcement link"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Bar color",
+        "default": "#dbc18b"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text color",
+        "default": "#fff"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,34 @@
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+
+
+<div id="product-desktop">
+	{% section 'product-template-cap' %}
+</div>
+<div id="product-mobile">
+	{% section 'product-template-cap-mobile' %}
+</div>
+<script>
+	if($(window).width()<760){
+		$("#product-desktop").html("");
+	}
+	else{
+		$("#product-mobile").html("");
+	}
+	
+
+</script>
+<script>
+  // Override default values of theme.strings for each template.
+  // Alternate product templates can change values of
+  // add to cart button, sold out, and unavailable states here.
+  window.productStrings = {
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }}
+  }
+</script>
+{% comment %}
+
+{% include 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true %}
+{% endcomment %}

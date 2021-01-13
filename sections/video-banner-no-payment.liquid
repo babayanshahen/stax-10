@@ -1,0 +1,121 @@
+<div id="shopify-section-{{ section.id }}" class="bn-section-2020 shopify-section index-section custom-html-section">
+  <div class="grid grid--uniform" data-section-id="{{ section.id }}" data-section-type="custom-html-section">
+    <div class=" ">
+      <!--     <div class="page-width"> -->
+      <div id="banner_custom_no_payment">
+        
+        
+           
+          
+        <div class="banner_section_bg " style="background-color: {{section.settings.banner_bg_color}}!important">
+          {% if section.settings.title != blank %}
+          <h1>{{ section.settings.title | escape }}</h1>
+        {% endif %}
+          <div class="banner_section_content">
+            
+            {% if section.settings.title-second != blank %}
+            <h2>{{ section.settings.title-second | escape }}</h2>
+            {% endif %}
+          </div>
+        </div>
+        <div id="banner-image-bn">
+          </div>
+          <a href="{{section.settings.text-link}}">
+          <div class="banner_section3">
+            <div class="banner_section_content3_2" >
+              <div>
+                <video muted="" playsinline="" autoplay="" loop="" preload="auto" style="width:100%" src="{{section.settings.video_url}}">
+                  <source src="{{section.settings.video_url}}" type="video/mp4">
+                </video>
+              </div>
+            </div>
+            
+            
+          </div>
+        </a>
+          
+        
+      </div>
+      <!--     </div> -->
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Video Banner No Payment",
+    "class": "index-section video-banner-no-payment",
+    "settings": [
+      {
+        "type": "text",
+        "id": "video_url",
+        "label": "Video Url",
+        "default": "Video Link"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Video alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "banner_bg_color",
+        "label": "Banner Color",
+        "default": "Hexadecimal Code"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Custom Banner"
+      },
+      {
+        "type": "text",
+        "id": "title-second",
+        "label": "Heading 2",
+        "default": "Custom Banner"
+      },
+      
+	
+      {
+        "type": "text",
+        "id": "text-link",
+        "label": "link here top",
+        "default": "link here top"
+      },
+      {
+        "type": "text",
+        "id": "button_label_custom",
+        "label": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "button_link_custom",
+        "label": "Button link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Video Without Payment",
+        "category": "Video"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

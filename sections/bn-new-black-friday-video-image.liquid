@@ -1,0 +1,165 @@
+<div class="video-youtube bn-custom-bf-video-youtube" data-section-id="{{ section.id }}" data-section-type="featured-video-section-type-2">
+  <a class="bn-custom-video-bf-container-link" href="{{ section.settings.gif_link }}">
+    <div class="bn-custom-video-bf-container">
+     {% if section.settings.video_url != blank %}
+     <div class="bn-bf-content-img-gif" style=" background-image:url({{ section.settings.video_url | img_url: '800x'}})">
+            </div>
+            {% comment %} <img class="bn-bf-content-img" src="{{ section.settings.video_url | img_url: '800x' }}"> {% endcomment %}
+            {% endif %}
+            {% if section.settings.heading != blank %}
+                <div class="bn-custom-video-bf-content" style="{% if section.settings.backgroundImage02_alignment == true %} right:2%;left:auto;  {% endif %}">
+                    <h2 class="bn-custom-video-bf-heading" style="color: {{section.settings.color_video}}">{{ section.settings.heading | escape }}</h2>
+                  <button class="bn-custom-video-bf-button" style="color: {{section.settings.video_button_color}}; background-color: {{section.settings.video_button_backgroundcolor}}">{{ section.settings.video_button_linktext | escape }}</button>
+                </div>
+            {% endif %}
+        </div>
+  </a>
+   <a class="bn-custom-image-bf-container-link" href="{{ section.settings.image_link }}">
+    <div class="bn-custom-image-bf-container">
+     {% if section.settings.Image != blank %}
+     <div class="bn-bf-content-img" style=" background-image:url({{ section.settings.Image | img_url: '800x'}})">
+            </div>
+             {% comment %} <img class="bn-bf-content-img" src="{{ section.settings.Image | img_url: '800x' }}"> {% endcomment %}
+                <div class="bn-custom-image-bf-content" style="{% if section.settings.backgroundImage01_alignment == true %} right:2%;left:auto;  {% endif %}">
+                 {% if section.settings.image_heading != blank %}
+                    <h2 class="bn-custom-image-bf-text" style="color: {{section.settings.color}}">{{ section.settings.image_heading | escape }}</h2>
+                     {% endif %}
+                     {% if section.settings.image_subheading != blank %}
+                    <h2 class="bn-custom-image-bf-text" style="color: {{section.settings.color}}">{{ section.settings.image_subheading | escape }}</h2>
+                     {% endif %}
+                     {% if section.settings.image_subheading_1 != blank %}
+                    <h2 class="bn-custom-image-bf-text" style="color: {{section.settings.color}}">{{ section.settings.image_subheading_1 | escape }}</h2>
+                     {% endif %}
+                     {% if section.settings.image_subheading_2 != blank %}
+                    <h2 class="bn-custom-image-bf-text" style="color: {{section.settings.color}}">{{ section.settings.image_subheading_2 | escape }}</h2>
+                     {% endif %}
+                     {% if section.settings.image_button_linktext != blank %}
+                <button class="bn-custom-image-button-text" style="color: {{section.settings.image_button_color}}; background-color: {{section.settings.image_button_backgrondcolor}}">{{ section.settings.image_button_linktext | escape }}</button>
+                 {% endif %}
+                </div>
+            {% endif %}
+        </div>
+  </a>
+</div>
+{% schema %}
+  {
+    "name": "BN BF Gif Skims",
+    "class": "index-section featured-video-section-type-2",
+    "settings": [
+     {
+        "id": "gif_link",
+        "type": "url",
+        "label": "Link"
+      },
+      {
+        "type": "image_picker",
+        "id": "video_url",
+        "label": "GIF "
+      },
+       {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading Gif",
+        "default": "Video"
+      },
+      {
+        "type": "color",
+        "id": "color_video",
+        "label": "Gif text colors",
+        "default": "#FFFFFF"
+      },
+        {
+        "id": "video_button_linktext",
+        "type": "text",
+        "label": "Gif Button text",
+        "default": "Click here"
+        },
+        {
+        "type": "color",
+        "id": "video_button_color",
+        "label": "Gif button color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "video_button_backgroundcolor",
+        "label": "Gif button background color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "checkbox",
+        "id": "backgroundImage02_alignment",
+        "label": "Right alignment"
+      },
+       {
+            "type": "image_picker",
+            "id": "Image",
+            "label": "Image"
+        },
+        {
+        "type": "color",
+        "id": "color",
+        "label": "Image text colors",
+        "default": "#FFFFFF"
+      },
+        {
+        "type": "text",
+        "id": "image_heading",
+        "label": "Text",
+        "default": "Text"
+      },
+      {
+        "type": "text",
+        "id": "image_subheading",
+        "label": "Text",
+        "default": "Text"
+      },
+      {
+        "type": "text",
+        "id": "image_subheading_1",
+        "label": "Text",
+        "default": "Text"
+      },
+      {
+        "type": "text",
+        "id": "image_subheading_2",
+        "label": "Text",
+        "default": "Text"
+      },
+      {
+        "id": "image_link",
+        "type": "url",
+        "label": "Image Link"
+      },
+        {
+        "id": "image_button_linktext",
+        "type": "text",
+        "label": "Image Button text",
+        "default": "Click here"
+        },
+        {
+        "type": "color",
+        "id": "image_button_color",
+        "label": "Image button color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "image_button_backgrondcolor",
+        "label": "Image button background color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "checkbox",
+        "id": "backgroundImage01_alignment",
+        "label": "Right alignment"
+      }
+    ],
+    "presets": [
+      {
+        "name": "BN BF Gif Skims",
+        "category": "Images"
+      }
+    ]
+  }
+{% endschema %}

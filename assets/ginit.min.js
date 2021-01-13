@@ -1,0 +1,1 @@
+var initBestCurrencyConverter=!0;

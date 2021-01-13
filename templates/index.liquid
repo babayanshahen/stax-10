@@ -1,0 +1,314 @@
+<!-- /templates/index.liquid -->
+{% comment %}
+  Define your section markup, using `section.settings.[setting_name]` to access specific settings.
+  * Sections do not have access to global liquid variables.
+{% endcomment %}
+
+{% assign slider_enabled = true %}
+<!-- Custom banner 1 -->
+<!--((((( Author Ani Hayrapetyan ))))) -->
+<!-- <div id="banner_custom_1">
+  <div class="banner_section">
+    <h1>50% OFF EVERYTHING *</h1>
+    <div class="banner_section_content">
+      <h5>ENTER: 50PLT</h5>
+      <h4>HURRY! LIMITED TIME ONLY</h4>
+      <h6>*EXCL SALE & BEAUTY</h6>
+    </div>
+  </div>
+  <div class="banner_section2">
+    <div class="banner_section_content2">
+      50% OFF EVERYTHING * ENTER: 50PLT - HURRY! LIMITED TIME ONLY
+    </div>
+    <div class="banner_section_content2">
+      PRETTYLITTLETHING X LITTLE MIX - 07.11.19
+    </div>
+  </div>
+  <div class="banner_section3">
+   
+    <div class="banner_section_content3_2">
+      <div>
+        <img src="https://cdn.shopify.com/s/files/1/0854/5504/files/washreit-who-we-are-main-2100x800.jpg?12014">
+      </div>
+      
+    </div>
+    <div class="night_fever">
+      <h1>Night Fever</h1>
+      <div class="shop_now">
+        <a href="" class="btn btn-primary">Shop Now</a>
+      </div>
+    </div>
+    
+  </div>
+  </div>
+ -->
+<!-- End Custom Banner 1 -->
+<div class="hero-wrapper">
+  <div class="hero__site-header">
+    {% section 'announcement-bar' %}
+
+  </div>
+
+    {% comment %} 
+     {% section 'slideshow' %} 
+
+    {% endcomment %} 
+
+  
+</div>
+<div class="bg-white"></div>
+<div class="bn-container bn-custom-container">
+    <div class="grid grid--no-gutter grid--table site-header__inner mobile_header">
+      <div class="burger-btn">
+        <button type="button" class="site-header__link text-link site-header__toggle-nav js-drawer-open-left">
+          <span class="icon icon-hamburger" aria-hidden="true"></span>
+          <span class="icon__fallback-text">{{ 'layout.navigation.menu' | t }}</span>
+        </button>
+      </div>
+      <div class="search-bug-currency-mobile">
+        <a href="/search" class="header-right-icon site-header__link site-header__search js-drawer-open-top">
+          <span class="icon icon-search" aria-hidden="true"></span>
+          <span class="icon__fallback-text">{{ 'layout.navigation.search' | t }}</span>
+        </a>
+         <a href="#swym-wishlist" class="swym-wishlist bn_swym_wishlist">
+          <i aria-hidden="true" focusable="false" role="presentation" class="fa fa-heart"></i>
+        </a>
+       
+        
+        <a href="/cart" class="bn_header_right_icon_cart bn_header_cart_drawer header-right-icon site-header__link site-header__cart cart-link{% if settings.cart_type == 'drawer' %} js-drawer-open-right{% endif %}{% if cart.item_count > 0 %} cart-bubble--visible{% endif %}">
+          <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 0H1C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1V15C0 15.5304 0.210714 16.0391 0.585786 16.4142C0.960859 16.7893 1.46957 17 2 17H18C18.5304 17 19.0391 16.7893 19.4142 16.4142C19.7893 16.0391 20 15.5304 20 15V1C20 0.734784 19.8946 0.48043 19.7071 0.292893C19.5196 0.105357 19.2652 0 19 0ZM10 9C6.691 9 4 6.309 4 3H6C6 5.206 7.794 7 10 7C12.206 7 14 5.206 14 3H16C16 6.309 13.309 9 10 9Z" fill="black"/>
+            </svg>
+            
+          <!-- <span class="icon icon-cart" aria-hidden="true"></span> -->
+          <span class="icon__fallback-text">{{ 'layout.cart.title' | t }}</span>
+        </a>
+        <div class="header-right-icon all_view_currency">
+  <div class="clone_selected_currency"></div>
+<ul class="clone_currency">
+  
+</ul>
+</div>
+        {% form 'currency' %}
+  <select name="currency">
+    {% for currency in shop.enabled_currencies %}
+      {% if currency == cart.currency %}
+        <option selected="true" class="custom-currency-flag-selected">{{currency.iso_code}} {{currency.symbol}} </option>
+        {% else %}
+        <option class="custom-currency-flag">{{currency.iso_code}}</option>
+      {% endif %}
+    {% endfor %}
+  </select>
+{% endform %}
+
+      </div>
+       <div class="hero__header">
+   <div class="action-area">
+     {% include 'action-bar' %}
+   </div>
+ </div>
+      
+    </div>
+  </div>
+
+
+{{ content_for_index }}
+
+<script defer>
+  $(function() {
+//     var   sliderSection = document.getElementById("shopify-section-slideshow");
+//      var toBeReplaced = document.getElementById("banner-image-bn");
+//     toBeReplaced.innerHTML =sliderSection;
+    
+//     insertBefore(sliderSection,toBeReplaced );
+    
+  var videoElements = document.getElementsByClassName('shopify-section index-section featured-video-section');
+  var videoElementsLength = videoElements.length;
+  
+  for(i=0; i < videoElementsLength; i++)
+  {
+    if( i != 0 )
+    {
+      document.getElementsByClassName('featured-video-section')[i].classList.add('product-item', 'grid__item', 'small--one-whole', 'medium-up--one-quarter','custom-small-video-sections');
+      if(document.getElementsByClassName('featured-video-section')[i].getElementsByClassName('video-youtube')[0].getElementsByTagName('h2').length != 0)
+      {
+        
+      	document.getElementsByClassName('featured-video-section')[i].getElementsByClassName('video-youtube')[0].getElementsByTagName('h2')[0].remove();
+      }
+
+    }
+  }
+  
+//    	function insertBefore(el, referenceNode) {
+//         referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+//     }
+  
+// //     function insertAfter(el, referenceNode) {
+// //       referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+// //     }
+  
+//     function insertBeforeSec(el, referenceNode) {
+//       referenceNode.parentNode.insertBefore(el, referenceNode);
+//     }
+  
+//   	var actionBar = document.getElementById("");
+//    	var heroHeader = document.getElementsByClassName("hero__header")[0];
+//     $(heroHeader).insertBefore($("#shopify-section-action-bar"));
+  	var actionBarForBanners = document.getElementById('shopify-section-action-bar');
+	var bannerOne 	=  document.getElementById('shopify-section-1542586272736');
+	var bannerTwo 	=  document.getElementById('shopify-section-1542586152151');
+	var bannerTree 	=  document.getElementById('shopify-section-1554410609882');
+  	var bannerFour 	=  document.getElementById('shopify-section-1561919667295');
+
+     
+	// index liquid
+  	if( bannerOne !== null )
+    {
+	  bannerOne.getElementsByClassName('feature-row grid large-up--grid--table')[0].classList.remove('large-up--grid--table');
+      bannerOne.querySelector('.feature-row__image').classList.remove('one-half');
+      bannerOne.querySelector('.feature-row__text').classList.remove('small--one-whole');
+      bannerOne.querySelector('.feature-row__text').classList.remove('medium--one-whole');
+      bannerOne.querySelector('.feature-row__text').style.position = 'absolute';
+      bannerOne.querySelector('.feature-row__text').style.zIndex = '2';
+      let gridHeight1 = bannerOne.querySelector('.feature-row.grid').clientHeight; 
+      let gridTextHeight = bannerOne.querySelector('.feature-row__text').clientHeight;
+      		bannerOne.querySelector('.feature-row__text').style.top = gridHeight1 - gridTextHeight - 35 +"px";
+      
+      if(bannerOne.querySelector('.grid__item.one-half').classList.value.includes('left') )
+      {
+      	bannerOne.querySelector('.feature-row__text').style.left = '50%';
+      }
+//       bannerOne.querySelector('.feature-row__content').style.textAlign  = 'center';  
+      bannerOne.querySelector('.feature-row__content').style.width = '100px';
+      bannerOne.querySelector('.feature-row__content').style.margin = '0 auto';
+      bannerOne.querySelector('.feature-row__content').classList.remove('feature-row__content');
+      bannerOne.querySelector('.grid__item.one-half').classList.remove('one-half');
+//       bannerOne.querySelector('.grid__item a').style.padding = '5px';
+    }
+  
+    if(bannerTwo !== null )
+    {
+      bannerTwo.getElementsByClassName('feature-row grid large-up--grid--table')[0].classList.remove('large-up--grid--table');
+      bannerTwo.classList.remove('index-section');
+      bannerTwo.querySelector('.feature-row__image').classList.remove('one-half');
+//       bannerTwo.querySelector('.feature-row__text').classList.remove('small--one-whole');
+//       bannerTwo.querySelector('.feature-row__text').classList.remove('medium--one-whole');
+      
+      
+      bannerTwo.querySelector('.feature-row__text').style.position = 'absolute';
+      bannerTwo.querySelector('.feature-row__text').style.zIndex = '2';
+//       bannerTwo.querySelector('.feature-row__text').style.marginTop = "22%" ;
+
+//       let gridHeight1 = bannerOne != null ? bannerOne.querySelector('.feature-row.grid').clientHeight : 0;
+//       let gridHeight2 = bannerTwo.querySelector('.feature-row.grid').clientHeight;
+//       let gridTextHeight = bannerTwo.querySelector('.feature-row__text').clientHeight;
+//       let slideHeight = sliderSection.clientHeight;
+//       bannerTwo.querySelector('.feature-row__text').style.top = slideHeight + gridHeight1 + (gridHeight2/2)-gridTextHeight/2+"px";
+// //             bannerTwo.querySelector('.feature-row__text').style.top = gridHeight1/2 + gridHeight1 + (gridHeight2/2) + 482 -gridTextHeight/2+"px";
+
+
+//       if(bannerTwo.querySelector('.grid__item.one-half').classList.value.includes('left') )
+//       {
+//         bannerTwo.querySelector('.feature-row__text').style.left = '50%';
+//       }
+//       bannerTwo.querySelector('.feature-row__content').style.textAlign  = 'center';
+      
+      
+//       bannerOne.getElementsByClassName('feature-row grid large-up--grid--table')[0].classList.remove('large-up--grid--table');
+//       bannerOne.querySelector('.feature-row__image').classList.remove('one-half');
+//       bannerOne.querySelector('.feature-row__text').classList.remove('small--one-whole');
+//       bannerOne.querySelector('.feature-row__text').classList.remove('medium--one-whole');
+//       bannerOne.querySelector('.feature-row__text').style.position = 'absolute';
+//       bannerOne.querySelector('.feature-row__text').style.zIndex = '2';
+      let gridHeight1 = bannerOne != null ? bannerOne.querySelector('.feature-row.grid').clientHeight : 0;
+      let gridHeight2 = bannerTwo.querySelector('.feature-row.grid').clientHeight;
+      let gridTextHeight = bannerTwo.querySelector('.feature-row__text').clientHeight;
+//       		bannerTwo.querySelector('.feature-row__text').style.top = gridHeight1 + gridHeight2/2  - 35 +"px";
+      
+      if(bannerTwo.querySelector('.grid__item.one-half').classList.value.includes('left') )
+      {
+      	bannerTwo.querySelector('.feature-row__text').style.left = '65%';
+        bannerTwo.querySelector('.feature-row__text').style.top = gridHeight1/2 + gridHeight1 + (gridHeight2/2)  -gridTextHeight/2+"px";
+      }
+//       bannerOne.querySelector('.feature-row__content').style.textAlign  = 'center';  
+//       bannerTwo.querySelector('.feature-row__content').style.width = '100px';
+//       bannerTwo.querySelector('.feature-row__content').style.margin = '0 auto';
+      bannerTwo.querySelector('.feature-row__content').classList.remove('feature-row__content');
+      bannerTwo.querySelector('.grid__item.one-half').classList.remove('one-half');
+
+    }
+  
+  	if(bannerTree !== null )
+    {
+      bannerTree.querySelector('.feature-row__text').style.position = 'absolute';
+      bannerTree.getElementsByClassName('feature-row grid large-up--grid--table')[0].classList.remove('large-up--grid--table');
+      bannerTree.classList.remove('index-section');
+      bannerTree.querySelector('.feature-row__image').classList.remove('one-half');
+      bannerTree.querySelector('.feature-row__text').classList.remove('small--one-whole');
+      bannerTree.querySelector('.feature-row__text').classList.remove('medium--one-whole');
+//      bannerTree.querySelector('.feature-row__content').classList.remove('feature-row__content');
+      bannerTree.querySelector('.grid__item.one-half').classList.remove('one-half');
+      
+      bannerTree.querySelector('.feature-row__text').style.zIndex = '2';
+//       bannerTree.querySelector('.feature-row__text').style.left = "60%" ;
+//       bannerTree.querySelector('.feature-row__text').style.marginTop = "22%" ;
+//       bannerTree.getElementsByClassName('feature-row grid').style.position = "relative" ;
+      	let gridHeight1 = bannerOne != null ? bannerOne.querySelector('.feature-row.grid').clientHeight : 0 ;
+        let gridHeight2 =  bannerTwo != null ? bannerTwo.querySelector('.feature-row.grid').clientHeight: 0 ;
+        let gridHeight3 = bannerTree.querySelector('.feature-row.grid').clientHeight ; 
+        let gridTextHeight = bannerTree.querySelector('.feature-row__text').clientHeight;
+      bannerTree.querySelector('.feature-row__text').style.top = gridHeight1 + gridHeight2 + gridHeight3 - gridTextHeight - 35 +"px";
+
+// 		let slideHeight = sliderSection.clientHeight;
+      
+//      		bannerTree.querySelector('.feature-row__text').style.top = slideHeight + gridHeight1 +  gridHeight2 + (gridHeight3/2)-gridTextHeight/2.4+"px";
+      
+//       if(bannerTree.querySelector('.grid__item.one-half').classList.value.includes('left') )
+//       {
+//       	bannerTree.querySelector('.feature-row__text').style.left = '50%';
+//       }
+//       bannerTree.querySelector('.feature-row__content').style.textAlign  = 'center';
+       bannerTree.querySelector('.feature-row__content').style.width = '100px';
+      bannerTree.querySelector('.feature-row__content').style.margin = '0 auto';
+      bannerTree.querySelector('.feature-row__content').classList.remove('feature-row__content');
+      bannerOne.querySelector('.grid__item.one-half').classList.remove('one-half');
+    }
+  
+  	if(bannerFour !== null )
+    {
+      bannerFour.getElementsByClassName('feature-row grid large-up--grid--table')[0].classList.remove('large-up--grid--table');
+      bannerFour.classList.remove('index-section');
+      bannerFour.querySelector('.feature-row__image').classList.remove('one-half');
+      bannerFour.querySelector('.feature-row__text').classList.remove('small--one-whole');
+      bannerFour.querySelector('.feature-row__text').classList.remove('medium--one-whole');
+      bannerFour.querySelector('.feature-row__text').style.position = 'absolute';
+      bannerFour.querySelector('.feature-row__text').style.zIndex = '2';
+      	let gridHeight1 = bannerOne != null ? bannerOne.querySelector('.feature-row.grid').clientHeight : 0 ;
+        let gridHeight2 =  bannerTwo != null ? bannerTwo.querySelector('.feature-row.grid').clientHeight: 0 ;
+        let gridHeight3 = bannerTree.querySelector('.feature-row.grid').clientHeight ; 
+      	let gridHeight4 = bannerFour.querySelector('.feature-row.grid').clientHeight ; 
+        let gridTextHeight = bannerTree.querySelector('.feature-row__text').clientHeight;
+		let slideHeight = sliderSection.clientHeight;
+
+     		bannerFour.querySelector('.feature-row__text').style.top = slideHeight + gridHeight1 +  gridHeight2 + gridHeight3 + (gridHeight4/2)-gridTextHeight/2.4+"px";
+      
+      if(bannerFour.querySelector('.grid__item.one-half').classList.value.includes('left') )
+      {
+      	bannerFour.querySelector('.feature-row__text').style.left = '50%';
+      }
+      bannerFour.querySelector('.feature-row__content').style.textAlign  = 'center';
+    }
+	
+//   	document.getElementById("shopify-section-slideshow").remove();
+  	// var  herroWrapper = document.getElementsByClassName('hero-wrapper')[0];
+  	// var  shopifySectionAnnouncementBar = document.getElementById('shopify-section-action-bar');
+  	// insertBefore(herroWrapper,shopifySectionAnnouncementBar);
+   //         insertBeforeSec(sliderSection,bannerTwo);
+
+  if(document.getElementById("shopify-section-1537353443247") != null){
+  	document.getElementById("shopify-section-1537353443247").className = "shopify-section custom-html-section";
+  }
+  
+});
+  
+</script>

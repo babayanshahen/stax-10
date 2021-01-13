@@ -1,0 +1,79 @@
+<div id="shopify-section-{{ section.id }}" class="bn-section-2020 shopify-section index-section custom-html-section">
+  <div class="grid grid--uniform" data-section-id="{{ section.id }}" data-section-type="custom-html-section">
+    <div class=" ">
+     
+      <div id="banner_custom_1" class="bn_newbanner_custom_1">
+          <div class="banner_section3 bn_banner_section3">
+                    <a class="banner_section3_link" href="{{ section.settings.link_for_video_image }}"> 
+            <div class="banner_section_content3_2" >
+              <div>
+                <video onloadeddata="bnVideoInit()" muted="" playsinline="" autoplay="" loop="" preload="auto"  id="Bn_banner_section_3_22_video" style="width:100%" src="{{section.settings.video_url}}">
+                  <source src="{{section.settings.video_url}}" type="video/mp4">
+                </video>
+              </div>
+            </div>
+            
+             </a> 
+          </div>
+            <a class="banner_sectionimg_link" href="{{ section.settings.link_for_video_image}}"> 
+              <div class="bn_banner_section_content2_222"  style="background-image:url({{ section.settings.logo_right | img_url: '1200x'}})">
+              </div>
+               <div class="bn_banner_sectionmobile_content2_222" style="background-image:url({{ section.settings.logo_right_mobile | img_url: '1200x'}})">
+              </div>
+                </a> 
+            
+
+         
+       
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function bnVideoInit(){
+    var videobannerHeight = $('#banner_custom_1').height();
+	$('.bn_banner_section_content2_222').css({"height":(videobannerHeight-5)+"px"});
+
+}
+</script>
+{% schema %}
+  {
+    "name": "BN Video and Image Half",
+    "class": "index-section custom-video-banner",
+    "settings": [
+      {
+        "type": "text",
+        "id": "video_url",
+        "label": "Video Url",
+        "default": "Video Link"
+      },
+	   {
+        "type": "url",
+        "id": "link_for_video_image",
+        "label": "Video Image Url"
+      },
+	  {
+        "type": "image_picker",
+        "id": "logo_right",
+        "label": "Image Desktop"
+      },
+	  {
+        "type": "image_picker",
+        "id": "logo_right_mobile",
+        "label": "Image Mobile"
+      }
+    ],
+    "presets": [
+      {
+        "name": "BN Video and Image Half",
+        "category": "Video"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

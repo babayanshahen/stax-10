@@ -1,0 +1,28 @@
+
+    
+    <div class="product-pay-options">
+    
+        <div class="afterpay-container">
+            <div id="custom-afterpay" class="custom-afterpay"></div>
+        </div>
+
+        <div class="latitudepay-container">
+            {%- assign latitudepay_price = current_variant.price | divided_by: 10 | money -%}
+                or 10 interest free payments from <strong>{{ latitudepay_price }}</strong> {% if current_variant.price < 2000 %}on orders over $20{% endif %} with 
+                <a href="https://www.latitudepay.com" target="_blank" class="latitude-pay-img">
+                    <img src="https://d5gx0tid0xr61.cloudfront.net/latitudepay_250px.png"/>
+                </a>
+                <a target="_blank" href="https://www.latitudepay.com/how-it-works/" class="latitude-pay-whatsthis">What's this?</a>
+        </div>
+
+        <div class="laybuy-container">
+            <div class='lay-buy-section'></div>
+        </div>
+
+        <div class="zippay-container">
+            or pay with <img src="{{ 'zipmoney.svg' | asset_url }}" alt="zippay">
+            <a href="https://zipmoney.co.nz/" target="_blank">What's this?</a>
+        </div>
+    </div>
+
+
