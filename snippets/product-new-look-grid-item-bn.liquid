@@ -20,13 +20,15 @@
           <noscript>
             <img class="product-item__image-no-js" src="{{ product.featured_image.src | img_url: '1024x' }}" alt="{{ product.featured_image.alt | escape }}">
           </noscript>
+         
           <div class=" size-box-vertical {% unless product.tags contains 'bn-product-separator' %} size-box-vertical-onlyunisex {% endunless %} {% if product.template_suffix != 'cap' %} size-box-vertical {% endif %} product-item__image-container ">
+            {% comment %}
             <div class="row quickBuyRow" >
                 <div class="quickBuyButtons">
                   <div class="size-prod-content container-fluid">
                     <div class="row sizes-row">
                       {% assign productTags = product.tags | join:',' %}
-                      {% if product.variants.size !=1 %}
+                        {% if product.variants.size !=1 %}
                          {% for variant in product.variants %}
                             {% if variant.available %}  
                               {% if variant.title != 'Default Title' %}
@@ -225,7 +227,7 @@
                         </div>
                       </div>
                       </div>
-            
+            {% endcomment %}
                         {% include 'swym-product-view', product: product %}
                           <div class="custom-swym-btn-container"> 
                             <button class='  swym-heart swym-button bn_swym_collection_button swym-inject swym-has-fave-count swym-icontext swym-added swym-loaded ' data-swaction="addToWishlist" data-product-id="{{product.id | json}}">
@@ -673,9 +675,10 @@
      <div class="for_prod_price_and_wishlist_button">
           <a href="{{ product.url }}" title="{{ product.title }}">
             <!-- <p class="correct_text">{{ product.title | strip_html | truncate: 40 }}</p> -->
-            <p class="correct_text bn_mob_hide">{{ product.title | strip_html  }}</p>
-            <p class="correct_text bn_text_hide bn_title_"> {% assign title1 = product.title | truncate: 40 | split: "- " %} {{ title1[0] }}</p>
-            <p class="correct_text bn_text_hide bn_subtitle_"> {% assign title1 = product.title | split: "- " %} {{ title1[1] }}</p>
+            {% assign first_title = product.title | split: "- " | first %}
+            {% assign second_title = product.title | split: "- " | last %}
+            <p class="correct_text  bn_title_"> {{first_title}}</p>
+            <p class="correct_text  bn_subtitle_"> {{second_title}}</p>
             
           </a>
           
@@ -730,7 +733,77 @@
          
   
   </div>
-    
+    <div class="select-size-container">
+      <div class="bn-size-boxes">
+        <select class="bn-size-select">
+          <option disabled value="" selected>Choose Size</option>
+          {% assign badge = '' %} 
+          {% for variant in product.variants %}
+          {% if variant.inventory_policy == "continue"%}
+              {% unless product.tags contains "bn_pre_important" %}
+                 {% if variant.inventory_quantity < 1 %}
+                 {% assign badge = 'Pre Sale' %} 
+                 {% endif %}
+              {% else %}
+              {% if variant.inventory_quantity > -1 %}
+              {% assign badge = 'Pre Sale' %} 
+                {% else %}
+                {% assign badge = 'Sold Out' %} 
+                {% endif %}
+              {% endunless %}
+              {% endif %}
+
+          <option value="{{variant.title}}" data-badge="{{badge}}" data-variant-id="{{variant.id}}" {% unless variant.available %}disabled {% endunless %}> 
+            {% case variant.title %}
+                {% when 'small' or 'S' %}
+                  S
+                {% when 'medium' or 'M' %}
+                  M
+                {% when 'large'  or 'L'%}
+                  L
+                {% when 'XS/S'%}
+                  WMNS-XS MENS-S
+                {% when 'S/M'%}
+                  WMNS-S MENS-M
+                {% when 'M/L'%}
+                  WMNS-M MENS-L
+                {% when 'L/XL'%}
+                  WMNS-L MENS-XL
+                {% when 'XL/2XL'%}
+                  WMNS-XL MENS-2XL
+                {% when '2XL/3XL'%}
+                  WMNS-2XL MENS-3XL
+                {% when '3XL/4XL'%}
+                  WMNS-3XL MENS-4XL
+                {% when 'XS/XS'%}
+                  WMNS-XS MENS-S
+                {% when 'S/S'%}
+                  WMNS-S MENS-M
+                {% when 'M/M'%}
+                  WMNS-M MENS-L
+                {% when 'L/L'%}
+                  WMNS-L MENS-XL
+                {% when 'XL/XL'%}
+                  WMNS-XL MENS-2XL
+                {% when '2XL/2XL'%}
+                  WMNS-2XL MENS-3XL
+                {% when '3XL/3XL'%}
+                  WMNS-3XL MENS-4XL
+                 {% else %}
+                    {{variant.title | upcase }}                    
+              {% endcase %}
+              
+          </option>
+          {% assign badge = '' %} 
+          {% endfor %}
+        </select>
+      </div>
+      <div class="bn-add-to-cart-container">
+        <button type="submit" class="btn bn-add-to-cart">ADD TO CART
+          <div class="continue-pre-sale"><div class="continue-pre-content">Pre Sale</div></div>
+        </button>
+        </div>
+    </div>
     
   {% render 'preorder-now-collection-item', product: product %}</div>
   
