@@ -1,5 +1,5 @@
-.artur{
-  color: red;
+button.swym-button {
+  border: none!important;
 }
 @font-face {
   font-family: 'Oswald';
@@ -3912,9 +3912,6 @@ $slick-opacity-not-active: 0.25;
 	 margin:15px 0;
 /*     margin-bottom:10px; */
   }
-  .prod-caption a{
-    min-height: 60px;
-  }
   .action-bar--has-dropdown:hover .menu-hover-out{
   display: block!important;
 }
@@ -7212,7 +7209,8 @@ opacity 0.5;
       text-overflow: ellipsis;
       font-size:14px;
       line-height: 24px;
-      margin:10px auto 0px auto;
+      margin-bottom: 0;
+      // margin:10px auto 0px auto;
       color: #535252;
     }
     .multiple-collection-content,.top-collections-content{
@@ -7259,39 +7257,40 @@ opacity 0.5;
   }
 }
 .continue-pre-sale{
-  width: 51px;
-  height: 45px;
+  width: 60px;
+  height: 51px;
   overflow: hidden;
   position: absolute;
+  /* padding: 0; */
   top: -4px;
-  right: -4px;
+  right: -3px;
   z-index: 100;
+  display: none;
 }
 .continue-pre-content{
   font: bold 8px Sans-Serif;
   color: #fff;
   text-align: center;
-  // text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
   -webkit-transform: rotate(45deg);
-  -moz-transform:    rotate(45deg);
-  -ms-transform:     rotate(45deg);
-  -o-transform:      rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
   position: relative;
-  padding: 2px 2px;
-      left: 12px;
-    top: 7px;
-    width: 50px;
+  padding: 2px 10px;
+  left: 14px;
+  top: 10px;
+  width: 62px;
   background-color: #f4686a;
   background-image: linear-gradient(to left bottom, #f4686a, #f76e70, #fa7475, #fc7a7b, #ff8081);
-  background-image: -webkit-gradient(linear, left bottom, #f4686a, #f76e70, #fa7475, #fc7a7b, #ff8081); 
-  background-image: -webkit-linear-gradient(left bottom, #f4686a, #f76e70, #fa7475, #fc7a7b, #ff8081); 
-  background-image:    -moz-linear-gradient(left bottom, #f4686a, #f76e70, #fa7475, #fc7a7b, #ff8081); 
-  background-image:     -ms-linear-gradient(left bottom, #f4686a, #f76e70, #fa7475, #fc7a7b, #ff8081); 
-  background-image:      -o-linear-gradient(left bottom, #f4686a, #f76e70, #fa7475, #fc7a7b, #ff8081); 
+  background-image: -webkit-gradient(linear, left bottom, #f4686a, #f76e70, #fa7475, #fc7a7b, #ff8081);
+  background-image: -webkit-linear-gradient(left bottom, #f4686a, #f76e70, #fa7475, #fc7a7b, #ff8081);
+  background-image: -moz-linear-gradient(left bottom, #f4686a, #f76e70, #fa7475, #fc7a7b, #ff8081);
+  background-image: -ms-linear-gradient(left bottom, #f4686a, #f76e70, #fa7475, #fc7a7b, #ff8081);
+  background-image: -o-linear-gradient(left bottom, #f4686a, #f76e70, #fa7475, #fc7a7b, #ff8081);
   color: #fff;
   -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
-  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
-  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
 }
 .continue-pre-content:before,.continue-pre-content:after{
    content: "";
@@ -9812,9 +9811,6 @@ button.bn_swym_collection_button{
   button.bn_swym_collection_button{
   	height: 30px !important;
   }
-  .prod-caption a{
-      min-height: 48px;
-  }
 }
 @media (max-width: 325px){
   .for_prod_price_and_wishlist_button{
@@ -10777,16 +10773,6 @@ margin-bottom:0 !important;
   min-height:auto !important;
 }
 
-
-.bn_title_{
-  font-size: 18px;
-  line-height: 117.3%;
-}
-.bn_subtitle_{
-  font-size: 12px!important; 
-  line-height: 117.3%!important ;
-  color: #949494!important ;
-}
 .bn_product__price_reg{
   color: #000;
   font-size: 16px;
@@ -10979,10 +10965,6 @@ margin-bottom:0 !important;
   .template-collection .message-and-wishlist {
     left: 8%;
   }
-  .template-collection .correct_text{
-    font-size: 12px;
-  }
- 
   // .bn_product__price_reg{
   //   font-size: 12px;
   // }
@@ -11205,15 +11187,6 @@ margin-bottom:0 !important;
   }
   .for_prod_price_and_wishlist_button{
     margin: 0 2px
-  }
-  .bn_title_{
-    font-size: 12px!important;
-    line-height: 117.3% !important;
-  }
-  .bn_subtitle_{
-    font-size: 12px!important;
-    line-height: 117.3%!important ;
-    color: #949494!important ;
   }
   .template-collection .prod-price{
     font-size: 16px;
@@ -11638,12 +11611,90 @@ margin-bottom:0 !important;
     display: none;
   }
 
+ /////////////////////////////////// // 
+//////////* New Update Stax */ //////
+/////////////////////////////////////
+
+.select-size-container{
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  width: 80%;
+  margin: auto;
+  border-top: 1px solid #C4C4C4;
+}
+.bn-size-select{
+  background-color: transparent;
+  background-image: url("https://cdn.shopify.com/s/files/1/0854/5504/files/Polygon_1.svg?v=1610722946");
+  font-family: Oswald;
+  background-size: 12px;
+  background-position: 95% 55%;
+
+}
+.bn-add-to-cart{
+  background-color: #000;
+  position: relative;
+  font-family: 'Oswald';
+}
+.bn-size-select:focus,.bn-add-to-cart:focus{
+  outline: none;
+}
+.bn-custom-width .correct_text{
+  text-transform: uppercase;
+  font-family: 'Oswald';
+  font-size: 14px;
+}
+.bn-custom-width .bn_subtitle_{
+  color: #949494;
+  margin-top: 0;
+}
+.product__price{
+  color: #000;
+  font-family: 'Oswald';
+  font-size: 16px;
+}
+.select-size-container{
+  align-items: center;
+}
+.prod-caption a{
+  margin-top: 10px;
+}
+@media (max-width: 1410px){
+  .select-size-container{
+    width:90%;
+  }
+  .bn-add-to-cart-container button{
+    padding: 10px;
+  }
+}
+@media (max-width: 1024px){
+  .select-size-container{
+    flex-direction: column;
+    text-align: center;
+  }
+  .select-size-container{
+    width:80%;
+  }
+  .bn-add-to-cart-container button{
+    padding: 10px 30px;
+  }
+}
  @media  (max-width: 768px) {
     .cart-page-products-bn{
       width: 100%;
     
       background-color: rgba(0,0,0,0.8);
       left:0;
+    }
+    .bn-custom-width .correct_text{
+      font-size: 16px;
+    }
+
+ 
+    .select-size-container{
+      padding: 0;
+      padding-bottom: 15px;
+      width: 90%;
     }
     .close-cart-products{
       display: block;

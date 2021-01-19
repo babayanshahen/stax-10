@@ -2,8 +2,7 @@
 {% paginate collection.products by 24 %}
 
 
-
-
+{% comment %} Starting github codding {% endcomment %}
 {% if section.settings.collection_sort_enable or section.settings.collection_tags_enable %}
   <div class="action-bar-secondary bn-container">
     {% if section.settings.collection_tags_enable and collection.all_tags.size > 1 %}

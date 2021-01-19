@@ -6427,3 +6427,63 @@ $('.bn_header_cart_drawer').click(function(){
   $('.cart-page-products-bn .quickBuySizeInput').click(function(){
       cartLeftItemsClose();
   })
+
+// ////////////////////////////////////
+///////////* New JS STAX *////////////
+//////////////////////////////////////
+$('.bn-size-select').change(function(){
+    let badge = $(this).find(':selected').data('badge');
+    if(badge){
+        $(this).closest('.select-size-container').find('.continue-pre-content').html(badge);
+        $(this).closest('.select-size-container').find('.continue-pre-sale').show();
+        
+    }
+    else{
+        $(this).closest('.select-size-container').find('.continue-pre-sale').hide();
+        
+    }
+    
+    console.log(badge);
+})
+$('.bn-add-to-cart').click(function(){
+    let partnerContainer = $(this).closest('.select-size-container');
+    let selectedValue = partnerContainer.find('select').val();
+    let selectedId = partnerContainer.find('select option:selected').data('variant-id');
+
+
+    /*
+
+Example code showing how to add an item to 
+the cart in Shopify using the Fetch API. 
+
+The important line is where we add the 
+X-Requested-With header. Without that the 
+fetch call will fail with a bad request error.
+
+*/
+
+
+(function(){
+
+    var addData = {
+      'id':selectedId,
+      'quantity':1
+    };
+  
+    fetch('/cart/add.js', {
+      body: JSON.stringify(addData),
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With':'xmlhttprequest' /* XMLHttpRequest is ok too, it's case insensitive */
+      },
+      method: 'POST'
+    }).then(function(){
+        ajaxCart.load(); // OPENING CART DRAWER AFTER ADDING PRODUCT IN CART
+    }).catch(function(err) {
+      /* we have error. */
+      console.error(err)
+    });
+    
+  })();
+})
