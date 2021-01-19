@@ -30,13 +30,12 @@
                alt="Top Banner Photo">
                <h2 class="bn-images-banner-title bn_i_w_t_b  bn_image_with_text_font_size" style="color:{{ section.settings.image_subheading_color}}; {% if section.settings.bn_alignment == true %} right:20px;left:auto;  {% endif %}">{{ section.settings.image_subheading}}</h2>
                 {% if section.settings.image_button_text != blank %}
-                  <button class="bn_button_buy_now bn_i_w_t " onclick="window.open('{{ section.settings.image_link_bn }}', '_blank');" style="{% if section.settings.bn_alignment == true %} right:20px;left:auto;  {% endif %}color:{{ section.settings.image_button_text_color}};background-color:{{ section.settings.image_button_background_color}}">
-                    {{ section.settings.image_button_text}}
-                  </button>
+                  
                 {% endif %}
         </a>
       </div>
       <p></p>
+      <a>dd</a>
       {% else %}
         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
       {% endif %}
